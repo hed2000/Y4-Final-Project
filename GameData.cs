@@ -33,17 +33,13 @@ public partial class GameData : Node
 		shop.Hide();
 	}
 	
-	private void changeSprite(string item)
+	private void _on_button_2_pressed()
 	{
-		GD.Print(item);
-		if (item == "hat")
-		{
-			GD.Print("item is hat");
-			var catSprite = GetNode<CharacterBody2D>("CatCharacterBody2D");
-			catSprite.Hide();
-			var hatSprite = GetNode<CharacterBody2D>("HatCharacterBody2D");
-			hatSprite.Show();
-		}
+		GD.Print("item is hat");
+		var catSprite = GetNode<CharacterBody2D>("CatCharacterBody2D");
+		catSprite.Hide();
+		var hatSprite = GetNode<CharacterBody2D>("HatCharacterBody2D");
+		hatSprite.Show();
 	}
 	
 	public void ButtonPressed(string item)

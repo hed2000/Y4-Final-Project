@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://main.cs" id="1_ls1pd"]
 [ext_resource type="Texture2D" uid="uid://ch06moskwywow" path="res://placeholder bg.png" id="1_vrwm4"]
+[ext_resource type="Script" path="res://GameScript.gd" id="2_g2ocd"]
 [ext_resource type="Texture2D" uid="uid://ds7825neqnicv" path="res://idle 1.png" id="2_lrl2s"]
 [ext_resource type="Texture2D" uid="uid://c5x4k7egu1p3v" path="res://button 1.png" id="3_fi8o8"]
 [ext_resource type="Texture2D" uid="uid://bk5i4tvprgq8v" path="res://idle 2.png" id="3_hu1ky"]
@@ -25,7 +26,6 @@
 [ext_resource type="Script" path="res://shop.cs" id="19_b7jlm"]
 [ext_resource type="Texture2D" uid="uid://bqfi5kyjfkban" path="res://button exit.png" id="20_6m7l3"]
 [ext_resource type="Script" path="res://shopGridContainer.cs" id="20_jse6t"]
-[ext_resource type="Script" path="res://GameData.cs" id="26_d7u6q"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ldtpr"]
 animations = [{
@@ -98,7 +98,7 @@ script = ExtResource("1_ls1pd")
 
 [node name="GameScript" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("26_d7u6q")
+script = ExtResource("2_g2ocd")
 
 [node name="TextureRect" type="TextureRect" parent="GameScript"]
 anchors_preset = 15
@@ -111,19 +111,21 @@ grow_vertical = 2
 texture = ExtResource("1_vrwm4")
 
 [node name="CatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
+unique_name_in_owner = true
 position = Vector2(0, 110)
 
 [node name="catsprite" type="AnimatedSprite2D" parent="GameScript/CatCharacterBody2D"]
 unique_name_in_owner = true
 position = Vector2(398, 644)
 sprite_frames = SubResource("SpriteFrames_ldtpr")
+animation = &"hat"
 autoplay = "default"
-frame_progress = 0.576513
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameScript/CatCharacterBody2D"]
 shape = SubResource("CapsuleShape2D_utqtj")
 
 [node name="HatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
+unique_name_in_owner = true
 visible = false
 position = Vector2(0, 110)
 
@@ -237,5 +239,6 @@ script = ExtResource("20_jse6t")
 
 [connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
+[connection signal="pressed" from="GameScript/HBoxContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameScript/addButton" to="GameScript" method="_on_add_button_pressed"]
 [connection signal="pressed" from="GameScript/shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
