@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://wju6gq1ayjcc"]
+[gd_scene load_steps=36 format=3 uid="uid://wju6gq1ayjcc"]
 
 [ext_resource type="Script" path="res://main.cs" id="1_ls1pd"]
 [ext_resource type="Texture2D" uid="uid://ch06moskwywow" path="res://placeholder bg.png" id="1_vrwm4"]
@@ -20,10 +20,14 @@
 [ext_resource type="Texture2D" uid="uid://ck4gt1yypsfue" path="res://hat idle 4.png" id="10_47qvt"]
 [ext_resource type="Texture2D" uid="uid://d10wwvvnvaqex" path="res://button 4 pressed.png" id="10_qcpc1"]
 [ext_resource type="Texture2D" uid="uid://b7vv8w7ca6mod" path="res://button 5.png" id="11_vwksm"]
+[ext_resource type="Texture2D" uid="uid://dgf3hco6on4r7" path="res://sprites/petSprites/cat tail.png" id="12_2ejma"]
+[ext_resource type="Script" path="res://CharacterSprites.gd" id="12_7v5x1"]
 [ext_resource type="Texture2D" uid="uid://cptnesfq8eu8c" path="res://button 5 pressed.png" id="12_gsd18"]
+[ext_resource type="Script" path="res://Character.gd" id="12_l3qf3"]
+[ext_resource type="Texture2D" uid="uid://iqwt2aswppsq" path="res://sprites/petSprites/cat body.png" id="13_04m7e"]
+[ext_resource type="Texture2D" uid="uid://d3css7bmrg6lv" path="res://sprites/petSprites/cat head.png" id="14_uw1gh"]
 [ext_resource type="Texture2D" uid="uid://ddefbpj61isxk" path="res://money.png" id="16_p7ybc"]
 [ext_resource type="Script" path="res://add_button.cs" id="17_42q57"]
-[ext_resource type="Script" path="res://shop.cs" id="19_b7jlm"]
 [ext_resource type="Texture2D" uid="uid://bqfi5kyjfkban" path="res://button exit.png" id="20_6m7l3"]
 [ext_resource type="Script" path="res://shopGridContainer.gd" id="26_jond8"]
 
@@ -88,6 +92,25 @@ animations = [{
 font_size = 50
 font_color = Color(0.270588, 0.0784314, 0.0784314, 1)
 
+[sub_resource type="CSharpScript" id="CSharpScript_36qwx"]
+script/source = "using Godot;
+using System;
+
+public partial class shop : VSplitContainer
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+	
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
+
 [sub_resource type="LabelSettings" id="LabelSettings_gxtp8"]
 font_size = 60
 outline_size = 10
@@ -112,6 +135,7 @@ texture = ExtResource("1_vrwm4")
 
 [node name="CatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(0, 110)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameScript/CatCharacterBody2D"]
@@ -124,19 +148,35 @@ sprite_frames = SubResource("SpriteFrames_ldtpr")
 animation = &"hat"
 autoplay = "default"
 
-[node name="HatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
+[node name="Character" type="Node2D" parent="GameScript"]
+script = ExtResource("12_l3qf3")
+
+[node name="CharacterSprites" type="Node2D" parent="GameScript/Character"]
 unique_name_in_owner = true
-visible = false
-position = Vector2(0, 110)
+script = ExtResource("12_7v5x1")
 
-[node name="hatsprite" type="AnimatedSprite2D" parent="GameScript/HatCharacterBody2D"]
-position = Vector2(398, 644)
-sprite_frames = SubResource("SpriteFrames_ldtpr")
-animation = &"hat"
-autoplay = "default"
+[node name="tail" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+texture = ExtResource("12_2ejma")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScript/HatCharacterBody2D"]
-shape = SubResource("CapsuleShape2D_utqtj")
+[node name="body" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+texture = ExtResource("13_04m7e")
+
+[node name="bodyAccessory" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+
+[node name="head" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+texture = ExtResource("14_uw1gh")
+
+[node name="headAccessory" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameScript"]
 anchors_preset = 12
@@ -215,7 +255,7 @@ offset_top = 110.0
 offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("19_b7jlm")
+script = SubResource("CSharpScript_36qwx")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="GameScript/shop"]
 layout_mode = 2

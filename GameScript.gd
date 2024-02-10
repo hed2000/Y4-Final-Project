@@ -10,8 +10,17 @@ func _ready():
 	shop.shop_button_pressed.connect(_shop_button)
 
 func _shop_button(string):
-	%catsprite.play(string)
-
+	match string:
+		"collar green":
+			%bodyAccessory.texture = load("res://sprites/bodyAccessories/collar green.png")
+		"hat green":
+			%headAccessory.texture = load("res://sprites/headAccessories/hat green.png")
+		"flowers pink":
+			%headAccessory.texture = load("res://sprites/headAccessories/flowers pink.png")
+		"? 10000":
+			%headAccessory.texture = null
+			%bodyAccessory.texture = null
+		
 func _on_button_2_pressed():
 	%catsprite.play("hat")
 	

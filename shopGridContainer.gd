@@ -10,20 +10,20 @@ func _ready():
 	
 	var button = Button.new()
 	button.text = "500"
-	button.icon = load("res://button hat.png")
-	button.pressed.connect(self.button_pressed.bind("hat"))
+	button.icon = load("res://buttons/shop/button collar green.png")
+	button.pressed.connect(self.button_pressed.bind("collar green"))
+	add_child(button)
+	
+	button = Button.new()
+	button.text = "500"
+	button.icon = load("res://buttons/shop/button hat green.png")
+	button.pressed.connect(self.button_pressed.bind("hat green"))
 	add_child(button)
 	
 	button = Button.new()
 	button.text = "1000"
-	button.icon = load("res://button unknown.png")
-	button.pressed.connect(self.button_pressed.bind("? 1000"))
-	add_child(button)
-	
-	button = Button.new()
-	button.text = "2000"
-	button.icon = load("res://button unknown.png")
-	button.pressed.connect(self.button_pressed.bind("? 2000"))
+	button.icon = load("res://buttons/shop/button flowers pink.png")
+	button.pressed.connect(self.button_pressed.bind("flowers pink"))
 	add_child(button)
 	
 	button = Button.new()
