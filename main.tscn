@@ -25,7 +25,7 @@
 [ext_resource type="Script" path="res://add_button.cs" id="17_42q57"]
 [ext_resource type="Script" path="res://shop.cs" id="19_b7jlm"]
 [ext_resource type="Texture2D" uid="uid://bqfi5kyjfkban" path="res://button exit.png" id="20_6m7l3"]
-[ext_resource type="Script" path="res://shopGridContainer.cs" id="20_jse6t"]
+[ext_resource type="Script" path="res://shopGridContainer.gd" id="26_jond8"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ldtpr"]
 animations = [{
@@ -100,7 +100,7 @@ script = ExtResource("1_ls1pd")
 unique_name_in_owner = true
 script = ExtResource("2_g2ocd")
 
-[node name="TextureRect" type="TextureRect" parent="GameScript"]
+[node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -110,35 +110,35 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_vrwm4")
 
-[node name="CatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
+[node name="CatCharacterBody2D" type="CharacterBody2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, 110)
 
-[node name="catsprite" type="AnimatedSprite2D" parent="GameScript/CatCharacterBody2D"]
+[node name="catsprite" type="AnimatedSprite2D" parent="CatCharacterBody2D"]
 unique_name_in_owner = true
 position = Vector2(398, 644)
 sprite_frames = SubResource("SpriteFrames_ldtpr")
 animation = &"hat"
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScript/CatCharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CatCharacterBody2D"]
 shape = SubResource("CapsuleShape2D_utqtj")
 
-[node name="HatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
+[node name="HatCharacterBody2D" type="CharacterBody2D" parent="."]
 unique_name_in_owner = true
 visible = false
 position = Vector2(0, 110)
 
-[node name="hatsprite" type="AnimatedSprite2D" parent="GameScript/HatCharacterBody2D"]
+[node name="hatsprite" type="AnimatedSprite2D" parent="HatCharacterBody2D"]
 position = Vector2(398, 644)
 sprite_frames = SubResource("SpriteFrames_ldtpr")
 animation = &"hat"
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScript/HatCharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HatCharacterBody2D"]
 shape = SubResource("CapsuleShape2D_utqtj")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameScript"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -149,42 +149,42 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Button1" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button1" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("3_fi8o8")
 texture_pressed = ExtResource("4_76va1")
 texture_hover = ExtResource("4_76va1")
 
-[node name="Button2" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button2" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vgyh")
 texture_pressed = ExtResource("6_xv5y5")
 texture_hover = ExtResource("6_xv5y5")
 
-[node name="Button3" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button3" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("7_wvv1m")
 texture_pressed = ExtResource("8_hyu5u")
 texture_hover = ExtResource("8_hyu5u")
 
-[node name="Button4" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button4" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("9_b2xak")
 texture_pressed = ExtResource("10_qcpc1")
 texture_hover = ExtResource("10_qcpc1")
 
-[node name="Button5" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button5" type="TextureButton" parent="HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("11_vwksm")
 texture_pressed = ExtResource("12_gsd18")
 texture_hover = ExtResource("12_gsd18")
 
-[node name="TextureRect2" type="TextureRect" parent="GameScript"]
+[node name="TextureRect2" type="TextureRect" parent="."]
 offset_right = 292.0
 offset_bottom = 110.0
 texture = ExtResource("16_p7ybc")
 
-[node name="MoneyLabel" type="Label" parent="GameScript"]
+[node name="MoneyLabel" type="Label" parent="."]
 unique_name_in_owner = true
 offset_left = 26.0
 offset_top = 22.0
@@ -194,7 +194,7 @@ text = "150"
 label_settings = SubResource("LabelSettings_w47ko")
 horizontal_alignment = 1
 
-[node name="addButton" type="TextureButton" parent="GameScript"]
+[node name="addButton" type="TextureButton" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -205,7 +205,7 @@ texture_normal = ExtResource("3_fi8o8")
 texture_pressed = ExtResource("4_76va1")
 script = ExtResource("17_42q57")
 
-[node name="shop" type="VSplitContainer" parent="GameScript"]
+[node name="shop" type="VSplitContainer" parent="."]
 unique_name_in_owner = true
 visible = false
 anchors_preset = 15
@@ -217,28 +217,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("19_b7jlm")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameScript/shop"]
+[node name="HBoxContainer" type="HBoxContainer" parent="shop"]
 layout_mode = 2
 theme_override_constants/separation = 490
 
-[node name="Label" type="Label" parent="GameScript/shop/HBoxContainer"]
+[node name="Label" type="Label" parent="shop/HBoxContainer"]
 layout_mode = 2
 text = "Shop"
 label_settings = SubResource("LabelSettings_gxtp8")
 
-[node name="shopExitButton" type="TextureButton" parent="GameScript/shop/HBoxContainer"]
+[node name="shopExitButton" type="TextureButton" parent="shop/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("20_6m7l3")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="GameScript/shop"]
+[node name="ScrollContainer" type="ScrollContainer" parent="shop"]
 layout_mode = 2
 
-[node name="shopGridContainer" type="GridContainer" parent="GameScript/shop/ScrollContainer"]
+[node name="shopGridContainer" type="GridContainer" parent="shop/ScrollContainer"]
 layout_mode = 2
-script = ExtResource("20_jse6t")
+script = ExtResource("26_jond8")
 
-[connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
-[connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
-[connection signal="pressed" from="GameScript/HBoxContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
-[connection signal="pressed" from="GameScript/addButton" to="GameScript" method="_on_add_button_pressed"]
-[connection signal="pressed" from="GameScript/shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
+[connection signal="pressed" from="addButton" to="GameScript" method="_on_add_button_pressed"]
+[connection signal="pressed" from="shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
