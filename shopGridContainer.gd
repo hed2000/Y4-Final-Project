@@ -4,6 +4,10 @@ signal shop_button_pressed(string)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	# var gameScriptResource = preload("res://GameScript.gd")
+	# var gameScript = gameScriptResource.new()
+	
 	var button = Button.new()
 	button.text = "500"
 	button.icon = load("res://button hat.png")
@@ -29,7 +33,6 @@ func _ready():
 	add_child(button)
 	
 func button_pressed(string):
-	print(string)
 	shop_button_pressed.emit(string)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
