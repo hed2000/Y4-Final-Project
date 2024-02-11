@@ -3,23 +3,28 @@ extends Node
 var Money
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Money = 150;
+	Money = 150
 	%MoneyLabel.text = "%d" % Money
 	
 	var shop = %shopGridContainer
 	shop.shop_button_pressed.connect(_shop_button)
 
-func _shop_button(string):
-	match string:
-		"collar green":
-			%bodyAccessory.texture = load("res://sprites/bodyAccessories/collar green.png")
-		"hat green":
-			%headAccessory.texture = load("res://sprites/headAccessories/hat green.png")
-		"flowers pink":
-			%headAccessory.texture = load("res://sprites/headAccessories/flowers pink.png")
-		"? 10000":
-			%headAccessory.texture = null
-			%bodyAccessory.texture = null
+func _shop_button(name, price):
+	if int(%MoneyLabel.text) >= price:
+		match name:
+			"collar green":
+				%bodyAccessory.texture = load("res://sprites/bodyAccessories/collar green.png")
+			"hat green":
+				%headAccessory.texture = load("res://sprites/headAccessories/hat green.png")
+			"flowers pink":
+				%headAccessory.texture = load("res://sprites/headAccessories/flowers pink.png")
+			"? 10000":
+				%headAccessory.texture = null
+				%bodyAccessory.texture = null
+		Money = Money - price
+		%MoneyLabel.text = "%d" % Money
+	else: 
+		print("Not enough money")
 		
 func _on_button_2_pressed():
 	%catsprite.play("hat")

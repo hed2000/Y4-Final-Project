@@ -19,7 +19,7 @@ public partial class main : Node
 		//var label = GetNode<Label>("MoneyLabel");
 		//label.Text = Money.ToString();
 		
-		const string connectionUri = "mongodb+srv://application:application4password@cluster0.64h8yuk.mongodb.net/?retryWrites=true&w=majority";
+		const string connectionUri = "mongodb+srv://admin:admin5password@cluster0.64h8yuk.mongodb.net/?retryWrites=true&w=majority";
 		var settings = MongoClientSettings.FromConnectionString(connectionUri);
 
 		// Set the ServerApi field of the settings object to set the version of the Stable API on the client
@@ -41,7 +41,8 @@ public partial class main : Node
 		var query =
 			(from c in usersCollection.AsQueryable<User>()
 			select c);
-		GD.Print(query.ToList());
+		var results = query.ToList(); 
+		GD.Print(results.ToString());
 		
 	}
 
