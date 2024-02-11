@@ -4,20 +4,15 @@ using System;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver.Linq;
 
 public partial class main : Node
 {
-		
-	//private int Money;
-	private static IMongoCollection<User> usersCollection;
+	
+	//private static IMongoCollection<User> usersCollection;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		//Money = 150;
-		//var label = GetNode<Label>("MoneyLabel");
-		//label.Text = Money.ToString();
 		
 		const string connectionUri = "mongodb+srv://admin:admin5password@cluster0.64h8yuk.mongodb.net/?retryWrites=true&w=majority";
 		var settings = MongoClientSettings.FromConnectionString(connectionUri);
@@ -28,7 +23,14 @@ public partial class main : Node
 		// Create a new client and connect to the server
 		var client = new MongoClient(settings);
 		var applicationDatabase = client.GetDatabase("application");
-		usersCollection = applicationDatabase.GetCollection<User>("user");
+		//usersCollection = applicationDatabase.GetCollection<User>("user");
+		var usersCollection = applicationDatabase.GetCollection<User>("user");
+		
+		var results = usersCollection.Find(_ => true); 
+		
+		foreach (var result in results.ToList()) {
+			GD.Print($"{result.Id}: {result.Name}");
+		}
 
 		// Send a ping to confirm a successful connection
 		try {
@@ -37,12 +39,6 @@ public partial class main : Node
 		} catch (Exception ex) {
 		 GD.Print(ex);
 		}
-		
-		var query =
-			(from c in usersCollection.AsQueryable<User>()
-			select c);
-		var results = query.ToList(); 
-		GD.Print(results.ToString());
 		
 	}
 
