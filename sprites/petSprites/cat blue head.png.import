@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d3css7bmrg6lv"
-path="res://.godot/imported/cat head.png-4e8e0ae21d9e836e6d2ceb8cf29e7ba6.ctex"
+uid="uid://c2rhjcmrsxlwx"
+path="res://.godot/imported/cat blue head.png-9c05f6c3a239959d58085465dce87005.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/petSprites/cat head.png"
-dest_files=["res://.godot/imported/cat head.png-4e8e0ae21d9e836e6d2ceb8cf29e7ba6.ctex"]
+source_file="res://sprites/petSprites/cat blue head.png"
+dest_files=["res://.godot/imported/cat blue head.png-9c05f6c3a239959d58085465dce87005.ctex"]
 
 [params]
 

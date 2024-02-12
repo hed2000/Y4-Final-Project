@@ -3,7 +3,16 @@ extends Node
 var Money
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Money = 150
+	var database_script = load("res://main.cs")
+	var database = database_script.new()
+	
+	database.init()
+	
+	%head.texture = load(database.headPath)
+	%body.texture = load(database.bodyPath)
+	%tail.texture = load(database.tailPath)
+	
+	Money = database.userMoney; 
 	%MoneyLabel.text = "%d" % Money
 	
 	var shop = %shopGridContainer

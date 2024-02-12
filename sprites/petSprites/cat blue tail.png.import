@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iqwt2aswppsq"
-path="res://.godot/imported/cat body.png-61a59a965e90f56621644671bc1c8d68.ctex"
+uid="uid://d1crxs7hhxxoa"
+path="res://.godot/imported/cat blue tail.png-694394a360943078004ad734276bc65d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/petSprites/cat body.png"
-dest_files=["res://.godot/imported/cat body.png-61a59a965e90f56621644671bc1c8d68.ctex"]
+source_file="res://sprites/petSprites/cat blue tail.png"
+dest_files=["res://.godot/imported/cat blue tail.png-694394a360943078004ad734276bc65d.ctex"]
 
 [params]
 
