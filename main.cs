@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 using MongoDB.Driver;
 using MongoDB.Bson;
@@ -14,6 +15,10 @@ public partial class main : Node
 	public String headPath;
 	public String bodyPath;
 	public String tailPath;
+	public List<ObjectId> taskId = new List<ObjectId>(); 
+	public Godot.Collections.Array<string> taskName = new Godot.Collections.Array<string>();
+	public List<int> taskMoney = new List<int>();
+	public List<int> taskExp = new List<int>(); 
 	
 	private ObjectId userId; 
 	private IMongoDatabase applicationDatabase;
@@ -45,7 +50,6 @@ public partial class main : Node
 		
 		get_user_info();
 		get_pet_skin();
-		add_task("test2", 150, 500);
 		
 	}
 	
@@ -88,6 +92,23 @@ public partial class main : Node
 		tasksCollection.InsertOne(task);
 		activeTasksCollection.InsertOne(activeTask);
 		
+	}
+	
+	public void get_tasks() {
+		tasksCollection = applicationDatabase.GetCollection<Task>("tasks");
+		var activeTasksCollection = applicationDatabase.GetCollection<ActiveTask>("active tasks");
+		var activeTaskResults = activeTasksCollection.Find(t => t.UserName == userName).ToList();
+		var taskResults = new List<Task>(); 
+		foreach (ActiveTask item in activeTaskResults) {
+			var resultList = tasksCollection.Find(t => t.Id == item.TaskId).Limit(1).ToList();
+			taskResults.Add(resultList[0]);
+		}
+		foreach (Task item in taskResults) {
+			taskId.Add(item.Id);
+			taskName.Add(item.Name);
+			taskMoney.Add(item.Money);
+			taskExp.Add(item.Exp);
+		}
 	}
 
 }

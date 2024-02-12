@@ -9,6 +9,10 @@ func _ready():
 	database.init()
 	load_sprite()
 	
+	database.get_tasks()
+	for x in database.taskName:
+		print(x)
+	
 	Money = database.userMoney; 
 	%MoneyLabel.text = "%d" % Money
 	
@@ -33,7 +37,7 @@ func _shop_button(name, price):
 		print("Not enough money")
 		
 func _on_button_2_pressed():
-	%catsprite.play("hat")
+	pass
 	
 func _on_add_button_pressed():
 	Money += 100
