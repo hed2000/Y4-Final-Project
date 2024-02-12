@@ -1,16 +1,13 @@
 extends Node
 
 var Money
+var database_script = load("res://main.cs")
+var database = database_script.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var database_script = load("res://main.cs")
-	var database = database_script.new()
 	
 	database.init()
-	
-	%head.texture = load(database.headPath)
-	%body.texture = load(database.bodyPath)
-	%tail.texture = load(database.tailPath)
+	load_sprite()
 	
 	Money = database.userMoney; 
 	%MoneyLabel.text = "%d" % Money
@@ -50,6 +47,12 @@ func _on_shop_exit_button_pressed():
 	
 func shop_button_pressed(string):
 	print(string)
+	
+func load_sprite():
+	%head.texture = load(database.headPath)
+	%body.texture = load(database.bodyPath)
+	%tail.texture = load(database.tailPath)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

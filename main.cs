@@ -14,6 +14,8 @@ public partial class main : Node
 	public String headPath;
 	public String bodyPath;
 	public String tailPath;
+	
+	private ObjectId userId; 
 	private IMongoDatabase applicationDatabase;
 	private IMongoCollection<User> usersCollection; 
 	private IMongoCollection<Task> tasksCollection; 
@@ -56,6 +58,7 @@ public partial class main : Node
 		userMoney = result.Money; 
 		userExp = result.Exp;
 		userPetType = result.PetType; 
+		userId = result.Id; 
 		
 		GD.Print($"{result.Id}, {result.Name}, {result.Exp}, {result.Money}, {result.PetType}, {result.Password}");
 		
@@ -63,7 +66,7 @@ public partial class main : Node
 	
 	public void get_pet_skin() {
 		var activeSkinsCollection = applicationDatabase.GetCollection<ActiveSkin>("active skin");
-		var activeSkinResults = activeSkinsCollection.Find(s => s.UserName == userName).ToList(); 
+		var activeSkinResults = activeSkinsCollection.Find(s => s.UserId == userId).ToList(); 
 		var activeSkin = activeSkinResults[0];
 		
 		skinsCollection = applicationDatabase.GetCollection<Skins>("skins");
@@ -72,14 +75,18 @@ public partial class main : Node
 		headPath = result.HeadPath; 
 		bodyPath = result.BodyPath;
 		tailPath = result.TailPath;
-		GD.Print($"{headPath}, {bodyPath}, {tailPath}");
 	}
 	
 	public void add_task(String name, int money, int exp) {
 		tasksCollection = applicationDatabase.GetCollection<Task>("tasks");
+		var activeTasksCollection = applicationDatabase.GetCollection<ActiveTask>("active tasks");
 		
-		var task = new Task { Name = name, Money = money, Exp = exp, Type = "custom"};
+		ObjectId id = ObjectId.GenerateNewId();
+		
+		var task = new Task {Id = id, Name = name, Money = money, Exp = exp, Type = "custom"};
+		var activeTask = new ActiveTask {TaskId = id, UserName = userName};
 		tasksCollection.InsertOne(task);
+		activeTasksCollection.InsertOne(activeTask);
 		
 	}
 
@@ -91,7 +98,7 @@ public class User
 {
 	
 	[BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
-	public string Id { get; set; }
+	public ObjectId Id { get; set; }
 	[BsonElement("name"), BsonRepresentation(BsonType.String)]
 	public string Name { get; set; }
 	[BsonElement("exp"), BsonRepresentation(BsonType.Int32)]
@@ -104,13 +111,11 @@ public class User
 	public string Password { get; set; }
 }
 
-[Serializable]
-
 public class Task
 {
 	
 	[BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
-	public string Id { get; set; }
+	public ObjectId Id { get; set; }
 	[BsonElement("name"), BsonRepresentation(BsonType.String)]
 	public string Name { get; set; }
 	[BsonElement("money"), BsonRepresentation(BsonType.Int32)]
@@ -121,13 +126,11 @@ public class Task
 	public string Type { get; set; }
 }
 
-[Serializable]
-
 public class Skins
 {
 	
 	[BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
-	public string Id { get; set; }
+	public ObjectId Id { get; set; }
 	[BsonElement("name"), BsonRepresentation(BsonType.String)]
 	public string Name { get; set; }
 	[BsonElement("pet_type"), BsonRepresentation(BsonType.String)]
@@ -142,15 +145,26 @@ public class Skins
 	public string TailPath { get; set; }
 }
 
-[Serializable]
-
 public class ActiveSkin
 {
 	
 	[BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
-	public string Id { get; set; }
+	public ObjectId Id { get; set; }
 	[BsonElement("user_name"), BsonRepresentation(BsonType.String)]
 	public string UserName { get; set; }
 	[BsonElement("skin_name"), BsonRepresentation(BsonType.String)]
 	public string SkinName { get; set; }
+	[BsonElement("user_id"), BsonRepresentation(BsonType.ObjectId)]
+	public ObjectId UserId { get; set; }
+}
+
+public class ActiveTask
+{
+	
+	[BsonId, BsonElement("_id"), BsonRepresentation(BsonType.ObjectId)]
+	public ObjectId Id { get; set; }
+	[BsonElement("user_name"), BsonRepresentation(BsonType.String)]
+	public string UserName { get; set; }
+	[BsonElement("task_id"), BsonRepresentation(BsonType.ObjectId)]
+	public ObjectId TaskId { get; set; }
 }
