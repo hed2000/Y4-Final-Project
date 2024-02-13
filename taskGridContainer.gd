@@ -11,13 +11,14 @@ func _ready():
 	database.get_tasks()
 		
 	var button
-	
-	for x in database.taskName:	
+	var i = 0
+	while i < database.taskId.size():	
 		button = Button.new()
-		button.text = x
+		button.text = database.taskName[i] + " " + str(database.taskMoney[i])
 		button.icon = load("res://button unknown.png")
-		button.pressed.connect(database.button_pressed)
+		button.pressed.connect(database.button_pressed.bind(database.taskId[i]))
 		add_child(button)
+		i += 1
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

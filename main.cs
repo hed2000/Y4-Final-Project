@@ -15,10 +15,10 @@ public partial class main : Node
 	public String headPath;
 	public String bodyPath;
 	public String tailPath;
-	public List<ObjectId> taskId = new List<ObjectId>(); 
+	public Godot.Collections.Array<string> taskId = new Godot.Collections.Array<string>(); 
 	public Godot.Collections.Array<string> taskName = new Godot.Collections.Array<string>();
-	public List<int> taskMoney = new List<int>();
-	public List<int> taskExp = new List<int>(); 
+	public Godot.Collections.Array<int> taskMoney = new Godot.Collections.Array<int>();
+	public Godot.Collections.Array<int> taskExp = new Godot.Collections.Array<int>(); 
 	
 	private ObjectId userId; 
 	private IMongoDatabase applicationDatabase;
@@ -104,15 +104,15 @@ public partial class main : Node
 			taskResults.Add(resultList[0]);
 		}
 		foreach (Task item in taskResults) {
-			taskId.Add(item.Id);
+			taskId.Add(item.Id.ToString());
 			taskName.Add(item.Name);
 			taskMoney.Add(item.Money);
 			taskExp.Add(item.Exp);
 		}
 	}
 	
-	public void button_pressed() {
-		GD.Print("test");
+	public void button_pressed(String id) {
+		GD.Print(id);
 	}
 
 }
