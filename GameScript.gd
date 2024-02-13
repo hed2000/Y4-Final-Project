@@ -9,10 +9,6 @@ func _ready():
 	database.init()
 	load_sprite()
 	
-	database.get_tasks()
-	for x in database.taskName:
-		print(x)
-	
 	Money = database.userMoney; 
 	%MoneyLabel.text = "%d" % Money
 	
@@ -35,9 +31,7 @@ func _shop_button(name, price):
 		%MoneyLabel.text = "%d" % Money
 	else: 
 		print("Not enough money")
-		
-func _on_button_2_pressed():
-	pass
+	
 	
 func _on_add_button_pressed():
 	Money += 100
@@ -46,8 +40,14 @@ func _on_add_button_pressed():
 func _on_button_1_pressed():
 	%shop.show()
 	
+func _on_button_2_pressed():
+	$tasks.show()
+	
 func _on_shop_exit_button_pressed():
 	%shop.hide()
+	
+func _on_task_exit_button_pressed():
+	%tasks.hide()
 	
 func shop_button_pressed(string):
 	print(string)

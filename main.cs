@@ -110,6 +110,10 @@ public partial class main : Node
 			taskExp.Add(item.Exp);
 		}
 	}
+	
+	public void button_pressed() {
+		GD.Print("test");
+	}
 
 }
 
