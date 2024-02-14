@@ -114,6 +114,22 @@ public partial class main : Node
 	public void button_pressed(String id) {
 		GD.Print(id);
 	}
+	
+	public void update_money(int amount) {
+		GD.Print(amount);
+		var filter = Builders<User>.Filter
+			.Eq(u => u.Id, userId);
+		
+		var oldUser = usersCollection.Find(filter).First();
+		GD.Print(oldUser.Name);
+		
+		GD.Print(userMoney);
+		userMoney += amount; 
+		GD.Print(userMoney);
+		
+		var newUser = new User {Id = oldUser.Id, Name = oldUser.Name, Exp = oldUser.Exp, Money = userMoney, PetType = oldUser.PetType, Password = oldUser.Password};
+		usersCollection.ReplaceOne(filter, newUser);
+	}
 
 }
 

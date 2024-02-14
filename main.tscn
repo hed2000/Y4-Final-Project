@@ -378,7 +378,7 @@ offset_left = 26.0
 offset_top = 22.0
 offset_right = 268.0
 offset_bottom = 91.0
-text = "150"
+text = "0"
 label_settings = SubResource("LabelSettings_w47ko")
 horizontal_alignment = 1
 
@@ -457,7 +457,6 @@ layout_mode = 2
 
 [node name="taskGridContainer" type="GridContainer" parent="GameScript/tasks/ScrollContainer"]
 layout_mode = 2
-columns = 3
 script = ExtResource("33_m86s1")
 
 [connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
