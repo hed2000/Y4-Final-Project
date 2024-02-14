@@ -9,8 +9,7 @@ func _ready():
 	database.init()
 	load_sprite()
 	
-	Money = database.userMoney; 
-	%MoneyLabel.text = "%d" % Money
+	%MoneyLabel.text = "%d" % database.userMoney
 	
 	var shop = %shopGridContainer
 	shop.shop_button_pressed.connect(_shop_button)
@@ -34,8 +33,7 @@ func _shop_button(name, price):
 	
 	
 func _on_add_button_pressed():
-	Money += 100
-	%MoneyLabel.text = "%d" % Money
+	update_money(100)
 
 func _on_button_1_pressed():
 	%shop.show()
@@ -56,6 +54,10 @@ func load_sprite():
 	%head.texture = load(database.headPath)
 	%body.texture = load(database.bodyPath)
 	%tail.texture = load(database.tailPath)
+
+func update_money(amount):
+	database.update_money(amount)
+	%MoneyLabel.text = "%d" % database.userMoney
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
