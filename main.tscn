@@ -459,9 +459,132 @@ layout_mode = 2
 layout_mode = 2
 script = ExtResource("33_m86s1")
 
+[node name="Login" type="Control" parent="GameScript"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -516.0
+offset_right = 305.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_p7ybc")
+
+[node name="Username" type="LineEdit" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -218.0
+offset_right = 175.0
+offset_bottom = -168.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameScript/Login/Username"]
+layout_mode = 0
+offset_top = -56.0
+offset_right = 198.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 40
+text = "Username"
+
+[node name="Password" type="LineEdit" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -56.0
+offset_right = 175.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+secret = true
+
+[node name="Label2" type="Label" parent="GameScript/Login/Password"]
+layout_mode = 0
+offset_top = -51.0
+offset_right = 198.0
+offset_bottom = 4.0
+theme_override_font_sizes/font_size = 40
+text = "Password"
+
+[node name="Label" type="Label" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -483.0
+offset_right = 92.0
+offset_bottom = -387.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "Login"
+
+[node name="TextureButton" type="TextureButton" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = 82.0
+offset_right = 146.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/Login/TextureButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "OK"
+
 [connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
 [connection signal="pressed" from="GameScript/HBoxContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameScript/addButton" to="GameScript" method="_on_add_button_pressed"]
 [connection signal="pressed" from="GameScript/shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
 [connection signal="pressed" from="GameScript/tasks/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]
+[connection signal="text_submitted" from="GameScript/Login/Username" to="GameScript" method="_on_username_text_submitted"]
+[connection signal="text_submitted" from="GameScript/Login/Password" to="GameScript" method="_on_password_text_submitted"]

@@ -59,6 +59,12 @@ func update_money(amount):
 	database.update_money(amount)
 	%MoneyLabel.text = "%d" % database.userMoney
 	
+func _on_username_text_submitted(new_text):
+	print(new_text)
+	
+func _on_password_text_submitted(new_text):
+	print(new_text.sha256_text())
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
