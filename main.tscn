@@ -460,6 +460,8 @@ layout_mode = 2
 script = ExtResource("33_m86s1")
 
 [node name="Login" type="Control" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -549,7 +551,8 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 70
 text = "Login"
 
-[node name="TextureButton" type="TextureButton" parent="GameScript/Login"]
+[node name="LoginButton" type="TextureButton" parent="GameScript/Login"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -564,7 +567,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("16_p7ybc")
 
-[node name="Label" type="Label" parent="GameScript/Login/TextureButton"]
+[node name="Label" type="Label" parent="GameScript/Login/LoginButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -588,3 +591,4 @@ text = "OK"
 [connection signal="pressed" from="GameScript/tasks/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]
 [connection signal="text_submitted" from="GameScript/Login/Username" to="GameScript" method="_on_username_text_submitted"]
 [connection signal="text_submitted" from="GameScript/Login/Password" to="GameScript" method="_on_password_text_submitted"]
+[connection signal="pressed" from="GameScript/Login/LoginButton" to="GameScript" method="_on_login_button_pressed"]

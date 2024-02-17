@@ -21,14 +21,14 @@ public partial class main : Node
 	public Godot.Collections.Array<int> taskExp = new Godot.Collections.Array<int>(); 
 	
 	private ObjectId userId; 
+	private string passwordHash;
+	private string confirmPasswordHash;
 	private IMongoDatabase applicationDatabase;
 	private IMongoCollection<User> usersCollection; 
 	private IMongoCollection<Task> tasksCollection; 
 	private IMongoCollection<Skins> skinsCollection; 
 	
 	public void init() {
-		
-		userName = "hed2000";
 		
 		const string connectionUri = "mongodb+srv://admin:admin5password@cluster0.64h8yuk.mongodb.net/?retryWrites=true&w=majority";
 		var settings = MongoClientSettings.FromConnectionString(connectionUri);
@@ -48,8 +48,8 @@ public partial class main : Node
 		 GD.Print(ex);
 		}
 		
-		get_user_info();
-		get_pet_skin();
+		//get_user_info();
+		//get_pet_skin();
 		
 	}
 	
@@ -129,6 +129,29 @@ public partial class main : Node
 		
 		var newUser = new User {Id = oldUser.Id, Name = oldUser.Name, Exp = oldUser.Exp, Money = userMoney, PetType = oldUser.PetType, Password = oldUser.Password};
 		usersCollection.ReplaceOne(filter, newUser);
+	}
+	
+	public void set_password(string password) {
+		passwordHash = password;
+	}
+	
+	public void set_confirm_password(string password) {
+		confirmPasswordHash = password;
+	}
+	
+	public string login() {
+		usersCollection = applicationDatabase.GetCollection<User>("user");
+		try {
+			var results = usersCollection.Find(u => u.Name == userName).First(); 
+			if (passwordHash == results.Password) {
+				return("login successful");
+			}
+			return "username or password is incorrect";
+		} catch (Exception ex) {
+			return "username or password is incorrect";
+		}
+		
+		return "unknown error";
 	}
 
 }

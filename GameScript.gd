@@ -7,9 +7,8 @@ var database = database_script.new()
 func _ready():
 	
 	database.init()
-	load_sprite()
-	
-	%MoneyLabel.text = "%d" % database.userMoney
+	if !database.userName:
+		%Login.show()
 	
 	var shop = %shopGridContainer
 	shop.shop_button_pressed.connect(_shop_button)
@@ -60,12 +59,25 @@ func update_money(amount):
 	%MoneyLabel.text = "%d" % database.userMoney
 	
 func _on_username_text_submitted(new_text):
-	print(new_text)
+	database.userName = new_text
 	
 func _on_password_text_submitted(new_text):
-	print(new_text.sha256_text())
+	new_text = new_text.sha256_text()
+	database.set_password(new_text)
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_login_button_pressed():
+	var string = database.login()
+	print(string)
+	if (string == "login successful"):
+		%Login.hide()
+		database.get_user_info()
+		database.get_pet_skin()
+		load_sprite()
+		%MoneyLabel.text = "%d" % database.userMoney
+		
