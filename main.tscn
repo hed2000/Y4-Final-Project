@@ -326,7 +326,8 @@ libraries = {
 }
 autoplay = "Idle"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameScript"]
+[node name="BottomBarContainer" type="HBoxContainer" parent="GameScript"]
+unique_name_in_owner = true
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -337,31 +338,31 @@ grow_vertical = 0
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="Button1" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button1" type="TextureButton" parent="GameScript/BottomBarContainer"]
 layout_mode = 2
 texture_normal = ExtResource("3_fi8o8")
 texture_pressed = ExtResource("4_76va1")
 texture_hover = ExtResource("4_76va1")
 
-[node name="Button2" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button2" type="TextureButton" parent="GameScript/BottomBarContainer"]
 layout_mode = 2
 texture_normal = ExtResource("5_1vgyh")
 texture_pressed = ExtResource("6_xv5y5")
 texture_hover = ExtResource("6_xv5y5")
 
-[node name="Button3" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button3" type="TextureButton" parent="GameScript/BottomBarContainer"]
 layout_mode = 2
 texture_normal = ExtResource("7_wvv1m")
 texture_pressed = ExtResource("8_hyu5u")
 texture_hover = ExtResource("8_hyu5u")
 
-[node name="Button4" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button4" type="TextureButton" parent="GameScript/BottomBarContainer"]
 layout_mode = 2
 texture_normal = ExtResource("9_b2xak")
 texture_pressed = ExtResource("10_qcpc1")
 texture_hover = ExtResource("10_qcpc1")
 
-[node name="Button5" type="TextureButton" parent="GameScript/HBoxContainer"]
+[node name="Button5" type="TextureButton" parent="GameScript/BottomBarContainer"]
 layout_mode = 2
 texture_normal = ExtResource("11_vwksm")
 texture_pressed = ExtResource("12_gsd18")
@@ -583,9 +584,9 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 60
 text = "OK"
 
-[connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]
-[connection signal="pressed" from="GameScript/HBoxContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
-[connection signal="pressed" from="GameScript/HBoxContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
 [connection signal="pressed" from="GameScript/addButton" to="GameScript" method="_on_add_button_pressed"]
 [connection signal="pressed" from="GameScript/shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
 [connection signal="pressed" from="GameScript/tasks/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]

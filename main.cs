@@ -48,21 +48,16 @@ public partial class main : Node
 		 GD.Print(ex);
 		}
 		
-		//get_user_info();
-		//get_pet_skin();
-		
 	}
 	
 	public void get_user_info() {
 		
 		usersCollection = applicationDatabase.GetCollection<User>("user");
 		
-		var results = usersCollection.Find(u => u.Name == userName).ToList(); 
-		var result = results[0]; 
+		var result = usersCollection.Find(u => u.Id == userId).First(); 
 		userMoney = result.Money; 
 		userExp = result.Exp;
 		userPetType = result.PetType; 
-		userId = result.Id; 
 		
 		GD.Print($"{result.Id}, {result.Name}, {result.Exp}, {result.Money}, {result.PetType}, {result.Password}");
 		
@@ -144,6 +139,7 @@ public partial class main : Node
 		try {
 			var results = usersCollection.Find(u => u.Name == userName).First(); 
 			if (passwordHash == results.Password) {
+				userId = results.Id; 
 				return("login successful");
 			}
 			return "username or password is incorrect";

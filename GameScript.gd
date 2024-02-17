@@ -64,12 +64,6 @@ func _on_username_text_submitted(new_text):
 func _on_password_text_submitted(new_text):
 	new_text = new_text.sha256_text()
 	database.set_password(new_text)
-	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 
 func _on_login_button_pressed():
 	var string = database.login()
