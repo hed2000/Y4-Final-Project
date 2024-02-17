@@ -38,6 +38,8 @@ func _on_button_1_pressed():
 	%shop.show()
 	
 func _on_button_2_pressed():
+	database.get_tasks()
+	%taskGridContainer.generate_tasks(database.taskId, database.taskName, database.taskMoney)
 	$tasks.show()
 	
 func _on_shop_exit_button_pressed():

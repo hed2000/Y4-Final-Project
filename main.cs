@@ -55,6 +55,8 @@ public partial class main : Node
 		usersCollection = applicationDatabase.GetCollection<User>("user");
 		
 		var result = usersCollection.Find(u => u.Id == userId).First(); 
+		userName = result.Name;
+		GD.Print(userName);
 		userMoney = result.Money; 
 		userExp = result.Exp;
 		userPetType = result.PetType; 
@@ -90,6 +92,10 @@ public partial class main : Node
 	}
 	
 	public void get_tasks() {
+		taskId.Clear(); 
+		taskName.Clear(); 
+		taskMoney.Clear();
+		taskExp.Clear();
 		tasksCollection = applicationDatabase.GetCollection<Task>("tasks");
 		var activeTasksCollection = applicationDatabase.GetCollection<ActiveTask>("active tasks");
 		var activeTaskResults = activeTasksCollection.Find(t => t.UserName == userName).ToList();
@@ -106,7 +112,7 @@ public partial class main : Node
 		}
 	}
 	
-	public void button_pressed(String id) {
+	public void complete_task(String id) {
 		GD.Print(id);
 	}
 	

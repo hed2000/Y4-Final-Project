@@ -3,20 +3,22 @@ extends GridContainer
 var database_script = load("res://main.cs")
 var database = database_script.new()
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	database.init()
+
+func generate_tasks(taskId, taskName, taskMoney):
 	
-	database.get_tasks()
+	# clears previously generated tasks
+	for n in get_children():
+		n.queue_free()
 		
 	var button
 	var i = 0
-	while i < database.taskId.size():	
+	while i < taskId.size():	
 		button = Button.new()
-		button.text = database.taskName[i] + " " + str(database.taskMoney[i])
+		button.text = taskName[i] + " " + str(taskMoney[i])
 		button.icon = load("res://button unknown.png")
-		button.pressed.connect(database.button_pressed.bind(database.taskId[i]))
+		button.pressed.connect(database.complete_task.bind(taskId[i]))
 		add_child(button)
 		i += 1
 

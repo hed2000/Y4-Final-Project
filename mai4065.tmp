@@ -457,9 +457,12 @@ texture_normal = ExtResource("20_6m7l3")
 layout_mode = 2
 
 [node name="taskGridContainer" type="GridContainer" parent="GameScript/tasks/ScrollContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("33_m86s1")
+
+[node name="TextureRect" type="TextureRect" parent="GameScript/tasks/ScrollContainer/taskGridContainer"]
+layout_mode = 2
+texture = ExtResource("16_p7ybc")
 
 [node name="Login" type="Control" parent="GameScript"]
 unique_name_in_owner = true
