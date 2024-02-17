@@ -10,8 +10,8 @@ func _ready():
 	if !database.userName:
 		%Login.show()
 	
-	var shop = %shopGridContainer
-	shop.shop_button_pressed.connect(_shop_button)
+	%shopGridContainer.shop_button_pressed.connect(_shop_button)
+	%taskGridContainer.task_completed.connect(task_completed)
 
 func _shop_button(name, price):
 	if int(%MoneyLabel.text) >= price:
@@ -25,8 +25,8 @@ func _shop_button(name, price):
 			"? 10000":
 				%headAccessory.texture = null
 				%bodyAccessory.texture = null
-		Money = Money - price
-		%MoneyLabel.text = "%d" % Money
+		update_money(-price)
+		%MoneyLabel.text = "%d" % database.userMoney
 	else: 
 		print("Not enough money")
 	
@@ -50,6 +50,11 @@ func _on_task_exit_button_pressed():
 	
 func shop_button_pressed(string):
 	print(string)
+
+func task_completed(taskId):
+	print("e")
+	database.complete_task(taskId)
+	%MoneyLabel.text = "%d" % database.userMoney
 	
 func load_sprite():
 	%head.texture = load(database.headPath)

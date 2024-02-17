@@ -1,15 +1,12 @@
 extends GridContainer
 
-var database_script = load("res://main.cs")
-var database = database_script.new()
-
-func _ready():
-	database.init()
+signal task_completed(taskId)
 
 func generate_tasks(taskId, taskName, taskMoney):
 	
 	# clears previously generated tasks
 	for n in get_children():
+		print("queue freed")
 		n.queue_free()
 		
 	var button
@@ -18,11 +15,9 @@ func generate_tasks(taskId, taskName, taskMoney):
 		button = Button.new()
 		button.text = taskName[i] + " " + str(taskMoney[i])
 		button.icon = load("res://button unknown.png")
-		button.pressed.connect(database.complete_task.bind(taskId[i]))
+		button.pressed.connect(self.button_pressed.bind(taskId[i]))
 		add_child(button)
 		i += 1
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func button_pressed(taskId):
+	task_completed.emit(taskId)

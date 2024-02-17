@@ -114,6 +114,14 @@ public partial class main : Node
 	
 	public void complete_task(String id) {
 		GD.Print(id);
+		try {
+			tasksCollection = applicationDatabase.GetCollection<Task>("tasks");
+			var newId = ObjectId.Parse(id);
+			var taskResult = tasksCollection.Find(t => t.Id == newId).First();
+			update_money(taskResult.Money);
+		} catch (Exception ex) {
+			GD.Print("task not found");
+		}
 	}
 	
 	public void update_money(int amount) {

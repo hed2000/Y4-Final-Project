@@ -34,7 +34,3 @@ func _ready():
 	
 func button_pressed(name, price):
 	shop_button_pressed.emit(name, price)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
