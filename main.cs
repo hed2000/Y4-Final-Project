@@ -30,7 +30,7 @@ public partial class main : Node
 	
 	public void init() {
 		
-		const string connectionUri = "mongodb+srv://admin:admin5password@cluster0.64h8yuk.mongodb.net/?retryWrites=true&w=majority";
+		const string connectionUri = "mongodb://admin:admin5password@ac-sskbxuk-shard-00-00.64h8yuk.mongodb.net:27017,ac-sskbxuk-shard-00-01.64h8yuk.mongodb.net:27017,ac-sskbxuk-shard-00-02.64h8yuk.mongodb.net:27017/?ssl=true&replicaSet=atlas-spne92-shard-0&authSource=admin&retryWrites=true&w=majority";
 		var settings = MongoClientSettings.FromConnectionString(connectionUri);
 
 		// Set the ServerApi field of the settings object to set the version of the Stable API on the client
@@ -96,6 +96,7 @@ public partial class main : Node
 		taskName.Clear(); 
 		taskMoney.Clear();
 		taskExp.Clear();
+		GD.Print("tasks reloaded");
 		tasksCollection = applicationDatabase.GetCollection<Task>("tasks");
 		var activeTasksCollection = applicationDatabase.GetCollection<ActiveTask>("active tasks");
 		var activeTaskResults = activeTasksCollection.Find(t => t.UserName == userName).ToList();
@@ -114,11 +115,26 @@ public partial class main : Node
 	
 	public void complete_task(String id) {
 		GD.Print(id);
+		var newId = ObjectId.Parse(id);
 		try {
+			var taskFilter = Builders<Task>.Filter
+				.Eq(t => t.Id, newId);
+				
 			tasksCollection = applicationDatabase.GetCollection<Task>("tasks");
-			var newId = ObjectId.Parse(id);
-			var taskResult = tasksCollection.Find(t => t.Id == newId).First();
+			var taskResult = tasksCollection.Find(taskFilter).First();
 			update_money(taskResult.Money);
+			
+			if (taskResult.Type == "custom") {
+				GD.Print("custom task");
+			}
+			
+			var activeTaskFilter = Builders<ActiveTask>.Filter
+				.Eq (a => a.TaskId, newId);
+			
+			var activeTasksCollection = applicationDatabase.GetCollection<ActiveTask>("active tasks");
+			var activeTaskResult = activeTasksCollection.Find(activeTaskFilter).First();
+			GD.Print("active task found");
+			get_tasks(); // refreshes task list to hide the newly completed task
 		} catch (Exception ex) {
 			GD.Print("task not found");
 		}
