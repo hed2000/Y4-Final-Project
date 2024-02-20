@@ -7,27 +7,18 @@ var ownedSkins
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Money = 500
-	
-	#var str = "[1, 2, 3, 4]"
-	#var list = str_to_var(str)
 	ownedSkins = ["ginger", "blue"]
-	print(ownedSkins)
-	var newstring = array_to_string(ownedSkins)
-	print(newstring)
-	#var newlist = str_to_var(newstr)
-	#for i in newlist:
-	#	print(i)
-	#database.init()
-	#if !database.userName:
-	#	%Login.show()
-	#else:
-	#	database.get_user_info()
-	#	database.get_pet_skin()
 	load_sprite()
 	%MoneyLabel.text = "%d" % Money
 	
 	%shopGridContainer.shop_button_pressed.connect(_shop_button)
 	%taskGridContainer.task_completed.connect(task_completed)
+	
+	save_game()
+	var loaded = load_game()
+	print(loaded)
+	var loaded_dict = str_to_var(loaded)
+	print(loaded_dict["money"])
 	
 func array_to_string(array): # used for saving game data
 	var newstr = "["
@@ -112,10 +103,19 @@ func _on_login_button_pressed():
 	#	%MoneyLabel.text = "%d" % database.userMoney
 	pass
 
-func save():
+func make_save():
 	var save_dict = {
 		"money" : Money,
 		"ownedskins" : ownedSkins
 	}
 	return save_dict
 		
+func save_game(): 
+	var file = FileAccess.open("user://save_game.dat", FileAccess.WRITE)
+	var save_string = make_save()
+	file.store_string(str(save_string))
+	
+func load_game():
+	var file = FileAccess.open("user://save_game.dat", FileAccess.READ)
+	var content = file.get_as_text()
+	return content
