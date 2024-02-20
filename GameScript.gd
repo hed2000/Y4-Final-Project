@@ -1,14 +1,23 @@
 extends Node
 
+# dictionaries
+var skins = {
+	# format: name : [headpath, bodypath, tailpath, price]
+	"ginger" : '["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0]',
+	"blue" : '["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]'
+}
+
 var Money
 var ownedSkins
+var activeSkin
 #var database_script = load("res://main.cs")
 #var database = database_script.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Money = 500
 	ownedSkins = ["ginger", "blue"]
-	load_sprite()
+	activeSkin = "ginger"
+	load_sprite(activeSkin)
 	%MoneyLabel.text = "%d" % Money
 	
 	%shopGridContainer.shop_button_pressed.connect(_shop_button)
@@ -74,10 +83,12 @@ func task_completed(taskId):
 	#database.complete_task(taskId)
 	#%MoneyLabel.text = "%d" % database.userMoney
 	
-func load_sprite():
-	%head.texture = load("res://sprites/petSprites/cat blue head.png")
-	%body.texture = load("res://sprites/petSprites/cat blue body.png")
-	%tail.texture = load("res://sprites/petSprites/cat blue tail.png")
+func load_sprite(string):
+	var string_array = skins[string]
+	var array = str_to_var(string_array)
+	%head.texture = load(array[0])
+	%body.texture = load(array[1])
+	%tail.texture = load(array[2])
 
 func update_money(amount):
 	Money += amount
@@ -106,7 +117,8 @@ func _on_login_button_pressed():
 func make_save():
 	var save_dict = {
 		"money" : Money,
-		"ownedskins" : ownedSkins
+		"ownedskins" : ownedSkins,
+		"activeskin" : activeSkin
 	}
 	return save_dict
 		
