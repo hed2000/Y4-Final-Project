@@ -1,11 +1,22 @@
 extends Node
 
 var Money
-var database_script = load("res://main.cs")
-var database = database_script.new()
+var ownedSkins
+#var database_script = load("res://main.cs")
+#var database = database_script.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Money = 500
+	
+	#var str = "[1, 2, 3, 4]"
+	#var list = str_to_var(str)
+	ownedSkins = ["ginger", "blue"]
+	print(ownedSkins)
+	var newstring = array_to_string(ownedSkins)
+	print(newstring)
+	#var newlist = str_to_var(newstr)
+	#for i in newlist:
+	#	print(i)
 	#database.init()
 	#if !database.userName:
 	#	%Login.show()
@@ -17,6 +28,17 @@ func _ready():
 	
 	%shopGridContainer.shop_button_pressed.connect(_shop_button)
 	%taskGridContainer.task_completed.connect(task_completed)
+	
+func array_to_string(array): # used for saving game data
+	var newstr = "["
+	for i in array:
+		print(i)
+		newstr += '"' + str(i) + '"'
+		if i != array[-1]: # checks last element of array
+			newstr += ", "
+	newstr += "]"
+	return(newstr)
+	
 
 func _shop_button(name, price):
 	if int(%MoneyLabel.text) >= price:
@@ -89,4 +111,11 @@ func _on_login_button_pressed():
 	#	load_sprite()
 	#	%MoneyLabel.text = "%d" % database.userMoney
 	pass
+
+func save():
+	var save_dict = {
+		"money" : Money,
+		"ownedskins" : ownedSkins
+	}
+	return save_dict
 		

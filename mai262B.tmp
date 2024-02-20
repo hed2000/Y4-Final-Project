@@ -1,0 +1,597 @@
+[gd_scene load_steps=41 format=3 uid="uid://wju6gq1ayjcc"]
+
+[ext_resource type="Script" path="res://main.cs" id="1_ls1pd"]
+[ext_resource type="Texture2D" uid="uid://ch06moskwywow" path="res://placeholder bg.png" id="1_vrwm4"]
+[ext_resource type="Script" path="res://GameScript.gd" id="2_g2ocd"]
+[ext_resource type="Texture2D" uid="uid://ds7825neqnicv" path="res://idle 1.png" id="2_lrl2s"]
+[ext_resource type="Texture2D" uid="uid://c5x4k7egu1p3v" path="res://button 1.png" id="3_fi8o8"]
+[ext_resource type="Texture2D" uid="uid://bk5i4tvprgq8v" path="res://idle 2.png" id="3_hu1ky"]
+[ext_resource type="Texture2D" uid="uid://bqtci6fnog4ss" path="res://button 1 pressed.png" id="4_76va1"]
+[ext_resource type="Texture2D" uid="uid://r1y8ubxvyhlx" path="res://idle 3.png" id="4_wwvky"]
+[ext_resource type="Texture2D" uid="uid://buyklhg622noq" path="res://button 2.png" id="5_1vgyh"]
+[ext_resource type="Texture2D" uid="uid://dpwflhmchj6vq" path="res://idle 4.png" id="5_58jj3"]
+[ext_resource type="Texture2D" uid="uid://qh8e6vkheqrj" path="res://button 2 pressed.png" id="6_xv5y5"]
+[ext_resource type="Texture2D" uid="uid://bmyd5awkd7nlh" path="res://hat idle 1.png" id="7_2sew4"]
+[ext_resource type="Texture2D" uid="uid://bf1dts6pfs1wv" path="res://button 3.png" id="7_wvv1m"]
+[ext_resource type="Texture2D" uid="uid://7u3pvkmkqpbh" path="res://hat idle 2.png" id="8_0llul"]
+[ext_resource type="Texture2D" uid="uid://cxf6y08veippu" path="res://button 3 pressed.png" id="8_hyu5u"]
+[ext_resource type="Texture2D" uid="uid://dkngbpjcr6vky" path="res://button 4.png" id="9_b2xak"]
+[ext_resource type="Texture2D" uid="uid://btsm13jflomp3" path="res://hat idle 3.png" id="9_jva3s"]
+[ext_resource type="Texture2D" uid="uid://ck4gt1yypsfue" path="res://hat idle 4.png" id="10_47qvt"]
+[ext_resource type="Texture2D" uid="uid://d10wwvvnvaqex" path="res://button 4 pressed.png" id="10_qcpc1"]
+[ext_resource type="Texture2D" uid="uid://b7vv8w7ca6mod" path="res://button 5.png" id="11_vwksm"]
+[ext_resource type="Texture2D" uid="uid://dgf3hco6on4r7" path="res://sprites/petSprites/cat ginger tail.png" id="12_2ejma"]
+[ext_resource type="Script" path="res://CharacterSprites.gd" id="12_7v5x1"]
+[ext_resource type="Texture2D" uid="uid://cptnesfq8eu8c" path="res://button 5 pressed.png" id="12_gsd18"]
+[ext_resource type="Script" path="res://Character.gd" id="12_l3qf3"]
+[ext_resource type="Texture2D" uid="uid://iqwt2aswppsq" path="res://sprites/petSprites/cat ginger body.png" id="13_04m7e"]
+[ext_resource type="Texture2D" uid="uid://d3css7bmrg6lv" path="res://sprites/petSprites/cat ginger head.png" id="14_uw1gh"]
+[ext_resource type="Texture2D" uid="uid://ddefbpj61isxk" path="res://money.png" id="16_p7ybc"]
+[ext_resource type="Script" path="res://add_button.cs" id="17_42q57"]
+[ext_resource type="Texture2D" uid="uid://bqfi5kyjfkban" path="res://button exit.png" id="20_6m7l3"]
+[ext_resource type="Script" path="res://shopGridContainer.gd" id="26_jond8"]
+[ext_resource type="Script" path="res://shop.gd" id="29_aieto"]
+[ext_resource type="Script" path="res://tasks.gd" id="32_k8mn3"]
+[ext_resource type="Script" path="res://taskGridContainer.gd" id="33_m86s1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_utqtj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ldtpr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_lrl2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hu1ky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wwvky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_58jj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wwvky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_hu1ky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_lrl2s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_2sew4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0llul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_jva3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_47qvt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_jva3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_0llul")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2sew4")
+}],
+"loop": true,
+"name": &"hat",
+"speed": 4.0
+}]
+
+[sub_resource type="Animation" id="Animation_er88e"]
+resource_name = "Idle"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.4, 2.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(400, 771.5), Vector2(400, 810.071), Vector2(400, 825.5), Vector2(400, 792.269), Vector2(400, 782.3)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(400, 771.5), Vector2(400, 785.5), Vector2(400, 773.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%body:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(1, 0.985714)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%headAccessory:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1, 1.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(400, 771.5), Vector2(400, 810.071), Vector2(400, 825.5), Vector2(400, 782.3)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%bodyAccessory:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(400, 771.5), Vector2(400, 785.5), Vector2(400, 773.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%bodyAccessory:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1.4, 2.7),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 0.9), Vector2(1, 0.985714)]
+}
+
+[sub_resource type="Animation" id="Animation_rhefo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%head:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, 771.5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%body:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, 771.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("%body:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("%headAccessory:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, 771.5)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("%bodyAccessory:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(400, 771.5)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("%bodyAccessory:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fqo5x"]
+_data = {
+"Idle": SubResource("Animation_er88e"),
+"RESET": SubResource("Animation_rhefo")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_w47ko"]
+font_size = 50
+font_color = Color(0.270588, 0.0784314, 0.0784314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gxtp8"]
+font_size = 60
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="BaseNode" type="Node"]
+script = ExtResource("1_ls1pd")
+
+[node name="GameScript" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_g2ocd")
+
+[node name="TextureRect" type="TextureRect" parent="GameScript"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -225.5
+offset_bottom = 225.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_vrwm4")
+
+[node name="CatCharacterBody2D" type="CharacterBody2D" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, 110)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameScript/CatCharacterBody2D"]
+shape = SubResource("CapsuleShape2D_utqtj")
+
+[node name="catsprite" type="AnimatedSprite2D" parent="GameScript/CatCharacterBody2D"]
+unique_name_in_owner = true
+position = Vector2(398, 644)
+sprite_frames = SubResource("SpriteFrames_ldtpr")
+animation = &"hat"
+autoplay = "default"
+
+[node name="Character" type="Node2D" parent="GameScript"]
+script = ExtResource("12_l3qf3")
+
+[node name="CharacterSprites" type="Node2D" parent="GameScript/Character"]
+unique_name_in_owner = true
+script = ExtResource("12_7v5x1")
+
+[node name="tail" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+texture = ExtResource("12_2ejma")
+
+[node name="body" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+texture = ExtResource("13_04m7e")
+
+[node name="bodyAccessory" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+
+[node name="head" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+texture = ExtResource("14_uw1gh")
+
+[node name="headAccessory" type="Sprite2D" parent="GameScript/Character/CharacterSprites"]
+unique_name_in_owner = true
+position = Vector2(400, 771.5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="GameScript/Character/CharacterSprites"]
+libraries = {
+"": SubResource("AnimationLibrary_fqo5x")
+}
+autoplay = "Idle"
+
+[node name="BottomBarContainer" type="HBoxContainer" parent="GameScript"]
+unique_name_in_owner = true
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -164.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Button1" type="TextureButton" parent="GameScript/BottomBarContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_fi8o8")
+texture_pressed = ExtResource("4_76va1")
+texture_hover = ExtResource("4_76va1")
+
+[node name="Button2" type="TextureButton" parent="GameScript/BottomBarContainer"]
+layout_mode = 2
+texture_normal = ExtResource("5_1vgyh")
+texture_pressed = ExtResource("6_xv5y5")
+texture_hover = ExtResource("6_xv5y5")
+
+[node name="Button3" type="TextureButton" parent="GameScript/BottomBarContainer"]
+layout_mode = 2
+texture_normal = ExtResource("7_wvv1m")
+texture_pressed = ExtResource("8_hyu5u")
+texture_hover = ExtResource("8_hyu5u")
+
+[node name="Button4" type="TextureButton" parent="GameScript/BottomBarContainer"]
+layout_mode = 2
+texture_normal = ExtResource("9_b2xak")
+texture_pressed = ExtResource("10_qcpc1")
+texture_hover = ExtResource("10_qcpc1")
+
+[node name="Button5" type="TextureButton" parent="GameScript/BottomBarContainer"]
+layout_mode = 2
+texture_normal = ExtResource("11_vwksm")
+texture_pressed = ExtResource("12_gsd18")
+texture_hover = ExtResource("12_gsd18")
+
+[node name="TextureRect2" type="TextureRect" parent="GameScript"]
+offset_right = 292.0
+offset_bottom = 110.0
+texture = ExtResource("16_p7ybc")
+
+[node name="MoneyLabel" type="Label" parent="GameScript"]
+unique_name_in_owner = true
+offset_left = 26.0
+offset_top = 22.0
+offset_right = 268.0
+offset_bottom = 91.0
+text = "0"
+label_settings = SubResource("LabelSettings_w47ko")
+horizontal_alignment = 1
+
+[node name="addButton" type="TextureButton" parent="GameScript"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -160.0
+offset_bottom = 164.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_fi8o8")
+texture_pressed = ExtResource("4_76va1")
+script = ExtResource("17_42q57")
+
+[node name="shop" type="VSplitContainer" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 110.0
+offset_bottom = -166.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("29_aieto")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameScript/shop"]
+layout_mode = 2
+theme_override_constants/separation = 490
+
+[node name="Label" type="Label" parent="GameScript/shop/HBoxContainer"]
+layout_mode = 2
+text = "Shop"
+label_settings = SubResource("LabelSettings_gxtp8")
+
+[node name="shopExitButton" type="TextureButton" parent="GameScript/shop/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("20_6m7l3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GameScript/shop"]
+layout_mode = 2
+
+[node name="shopGridContainer" type="GridContainer" parent="GameScript/shop/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+script = ExtResource("26_jond8")
+
+[node name="tasks" type="VSplitContainer" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 110.0
+offset_bottom = -166.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("32_k8mn3")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameScript/tasks"]
+layout_mode = 2
+theme_override_constants/separation = 474
+
+[node name="Label" type="Label" parent="GameScript/tasks/HBoxContainer"]
+layout_mode = 2
+text = "Tasks"
+label_settings = SubResource("LabelSettings_gxtp8")
+
+[node name="taskExitButton" type="TextureButton" parent="GameScript/tasks/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("20_6m7l3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GameScript/tasks"]
+layout_mode = 2
+
+[node name="taskGridContainer" type="GridContainer" parent="GameScript/tasks/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("33_m86s1")
+
+[node name="Login" type="Control" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -516.0
+offset_right = 305.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_p7ybc")
+
+[node name="Username" type="LineEdit" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -218.0
+offset_right = 175.0
+offset_bottom = -168.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameScript/Login/Username"]
+layout_mode = 0
+offset_top = -56.0
+offset_right = 198.0
+offset_bottom = -1.0
+theme_override_font_sizes/font_size = 40
+text = "Username"
+
+[node name="Password" type="LineEdit" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -56.0
+offset_right = 175.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+secret = true
+
+[node name="Label2" type="Label" parent="GameScript/Login/Password"]
+layout_mode = 0
+offset_top = -51.0
+offset_right = 198.0
+offset_bottom = 4.0
+theme_override_font_sizes/font_size = 40
+text = "Password"
+
+[node name="Label" type="Label" parent="GameScript/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -483.0
+offset_right = 92.0
+offset_bottom = -387.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "Login"
+
+[node name="LoginButton" type="TextureButton" parent="GameScript/Login"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = 82.0
+offset_right = 146.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/Login/LoginButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "OK"
+
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button2" to="GameScript" method="_on_button_2_pressed"]
+[connection signal="pressed" from="GameScript/BottomBarContainer/Button2" to="GameScript/tasks/ScrollContainer/taskGridContainer" method="_on_button_2_pressed"]
+[connection signal="pressed" from="GameScript/addButton" to="GameScript" method="_on_add_button_pressed"]
+[connection signal="pressed" from="GameScript/shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
+[connection signal="pressed" from="GameScript/tasks/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]
+[connection signal="text_submitted" from="GameScript/Login/Username" to="GameScript" method="_on_username_text_submitted"]
+[connection signal="text_submitted" from="GameScript/Login/Password" to="GameScript" method="_on_password_text_submitted"]
+[connection signal="pressed" from="GameScript/Login/LoginButton" to="GameScript" method="_on_login_button_pressed"]
