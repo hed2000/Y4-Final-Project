@@ -31,7 +31,7 @@ signal load_shop(accessories, include)
 
 func _ready():
 	
-	#reset_save()
+	reset_save()
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
 		new_game()
@@ -62,6 +62,14 @@ func _shop_button(name, price):
 				%bodyAccessory.texture = null
 		update_money(-price)
 		%MoneyLabel.text = "%d" % Money
+		Owned_Accessories.append(name)
+		var i = 0
+		while i < len(Shop_Include):
+			if Shop_Include[i] == name:
+				Shop_Include.remove_at(i)
+			i += 1
+		%shopGridContainer.load_shop(accessories_dict, Shop_Include)
+		save_game()
 	else: 
 		print("Not enough money")
 	
@@ -121,7 +129,9 @@ func make_save():
 		"money" : Money,
 		"activetasks" : Active_Tasks,
 		"shopinclude" : Shop_Include,
-		"skinsinclude" : Skins_Include
+		"skinsinclude" : Skins_Include,
+		"ownedaccessories" : Owned_Accessories,
+		"activeaccessories" : Active_Accessories
 	}
 	return save_dict
 		
@@ -138,11 +148,19 @@ func load_game():
 	print(Save_Data)
 	var save_dict = str_to_var(Save_Data)
 	
-	Money = save_dict["money"]
+	Pet_Name = save_dict["petname"]
+	Pet_Type = save_dict["pettype"]
+	Owned_Skins = save_dict["ownedskins"]
 	Active_Skin = save_dict["activeskin"]
+	Money = save_dict["money"]
+	Active_Tasks = save_dict["activetasks"]
+	Shop_Include = save_dict["shopinclude"]
+	Skins_Include = save_dict["skinsinclude"]
+	Owned_Accessories = save_dict["ownedaccessories"]
+	Active_Accessories = save_dict["activeaccessories"]
+	
 	load_sprite(Active_Skin)
 	%MoneyLabel.text = "%d" % Money
-	Shop_Include = save_dict["shopinclude"]
 	
 	
 func reset_save():
