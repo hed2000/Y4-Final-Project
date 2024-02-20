@@ -29,7 +29,7 @@ var Save_Data
 
 func _ready():
 	
-	reset_save()
+	#reset_save()
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
 		new_game()
@@ -125,7 +125,16 @@ func load_sprite(string):
 	%head.texture = load(array[0])
 	%body.texture = load(array[1])
 	%tail.texture = load(array[2])
-
+	print(Active_Accessories)
+	if Active_Accessories[0] != "":
+		var itemdata = str_to_var(accessories_dict[Active_Accessories[0]])
+		%headAccessory.texture = load(itemdata[0])
+	if Active_Accessories[1] != "":
+		var itemdata = str_to_var(accessories_dict[Active_Accessories[1]])
+		print(itemdata)
+		%bodyAccessory.texture = load(itemdata[0])
+		
+		
 func update_money(amount):
 	Money += amount
 	%MoneyLabel.text = "%d" % Money
