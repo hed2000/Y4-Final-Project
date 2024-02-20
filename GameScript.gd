@@ -1,10 +1,17 @@
 extends Node
 
 # dictionaries
-var skins = {
+var skins_dict = {
 	# format: name : [headpath, bodypath, tailpath, price]
 	"ginger" : '["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0]',
 	"blue" : '["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]'
+}
+
+var accessories_dict = {
+	# format: name : [path, price, icon]
+	"collar green" : '["res://sprites/bodyAccessories/collar green.png", 500, "res://buttons/shop/button collar green.png"]',
+	"hat green" : '["res://sprites/headAccessories/hat green.png", 500, "res://buttons/shop/button hat green.png"]',
+	"flowers pink" : '["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png"]'
 }
 
 var Pet_Name
@@ -13,14 +20,18 @@ var Owned_Skins
 var Active_Skin
 var Money
 var Active_Tasks
+var Shop_Include
+var Skins_Include
+var Owned_Accessories
+var Active_Accessories
 
 var Save_Data
-#var database_script = load("res://main.cs")
-#var database = database_script.new()
-# Called when the node enters the scene tree for the first time.
+
+signal load_shop(accessories, include)
+
 func _ready():
-	#reset_save()
 	
+	#reset_save()
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
 		new_game()
@@ -59,12 +70,21 @@ func _on_add_button_pressed():
 	update_money(100)
 
 func _on_button_1_pressed():
+	load_shop.emit(accessories_dict, Shop_Include)
+	%shopGridContainer.load_shop(accessories_dict, Shop_Include)
 	%shop.show()
 	
 func _on_button_2_pressed():
-	#database.get_tasks()
-	#%taskGridContainer.generate_tasks(database.taskId, database.taskName, database.taskMoney)
+	pass
+
+func _on_button_3_pressed():
+	pass
+
+func _on_button_4_pressed():
 	$tasks.show()
+
+func _on_button_5_pressed():
+	pass
 	
 func _on_shop_exit_button_pressed():
 	%shop.hide()
@@ -81,7 +101,7 @@ func task_completed(taskId):
 	#%MoneyLabel.text = "%d" % database.userMoney
 	
 func load_sprite(string):
-	var string_array = skins[string]
+	var string_array = skins_dict[string]
 	var array = str_to_var(string_array)
 	%head.texture = load(array[0])
 	%body.texture = load(array[1])
@@ -99,7 +119,9 @@ func make_save():
 		"ownedskins" : Owned_Skins,
 		"activeskin" : Active_Skin,
 		"money" : Money,
-		"activetasks" : Active_Tasks
+		"activetasks" : Active_Tasks,
+		"shopinclude" : Shop_Include,
+		"skinsinclude" : Skins_Include
 	}
 	return save_dict
 		
@@ -120,15 +142,22 @@ func load_game():
 	Active_Skin = save_dict["activeskin"]
 	load_sprite(Active_Skin)
 	%MoneyLabel.text = "%d" % Money
+	Shop_Include = save_dict["shopinclude"]
+	
 	
 func reset_save():
 	var file = FileAccess.open("user://save_game.dat", FileAccess.WRITE)
 	file.store_string("")
 	
 func new_game():
+	# initialising variables to be saved
 	Money = 500
 	Pet_Type = "cat"
 	Active_Tasks = []
+	Shop_Include = ["collar green", "hat green", "flowers pink"]
+	Skins_Include = ["blue"]
+	Owned_Accessories = []
+	Active_Accessories = ["", ""] # head, body
 	%NewGame.show()
 
 func _on_pet_name_text_changed(new_text):
@@ -141,8 +170,8 @@ func _on_cat_button_pressed():
 
 func _on_dog_button_pressed():
 	Pet_Type = "dog"
-	Active_Skin = "blue"
-	Owned_Skins = ["ginger", "blue"]
+	Active_Skin = "ginger"
+	Owned_Skins = ["ginger"]
 
 func _on_new_game_start_button_pressed():
 	save_game()

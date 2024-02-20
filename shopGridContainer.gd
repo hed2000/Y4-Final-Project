@@ -2,35 +2,24 @@ extends GridContainer
 
 signal shop_button_pressed(string)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func load_shop(accessories, include):
 	
-	# var gameScriptResource = preload("res://GameScript.gd")
-	# var gameScript = gameScriptResource.new()
+	var button
+	var item_data
 	
-	var button = Button.new()
-	button.text = "500"
-	button.icon = load("res://buttons/shop/button collar green.png")
-	button.pressed.connect(self.button_pressed.bind("collar green", 500))
-	add_child(button)
+	# clears previously generated shop interface
+	for n in get_children():
+		n.queue_free()
 	
-	button = Button.new()
-	button.text = "500"
-	button.icon = load("res://buttons/shop/button hat green.png")
-	button.pressed.connect(self.button_pressed.bind("hat green", 500))
-	add_child(button)
-	
-	button = Button.new()
-	button.text = "1000"
-	button.icon = load("res://buttons/shop/button flowers pink.png")
-	button.pressed.connect(self.button_pressed.bind("flowers pink", 1000))
-	add_child(button)
-	
-	button = Button.new()
-	button.text = "10000"
-	button.icon = load("res://button unknown.png")
-	button.pressed.connect(self.button_pressed.bind("? 10000", 10000))
-	add_child(button)
+	for i in include:
+		print(i)
+		button = Button.new()
+		item_data = str_to_var(accessories[i])
+		print(item_data)
+		button.text = str(item_data[1])
+		button.icon = load(item_data[2])
+		button.pressed.connect(self.button_pressed.bind(i, item_data[1]))
+		add_child(button)
 	
 func button_pressed(name, price):
 	shop_button_pressed.emit(name, price)
