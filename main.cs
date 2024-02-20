@@ -8,7 +8,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 public partial class main : Node
 {
-	public String userName;
+	public String userName = "hed2000";
 	public int userMoney;
 	public int userExp;
 	public String userPetType; 
@@ -54,10 +54,10 @@ public partial class main : Node
 		
 		usersCollection = applicationDatabase.GetCollection<User>("user");
 		
-		var result = usersCollection.Find(u => u.Id == userId).First(); 
-		//var result = usersCollection.Find(u => u.Name == userName).First(); 
-		userName = result.Name;
-		//userId = result.Id;
+		//var result = usersCollection.Find(u => u.Id == userId).First(); 
+		var result = usersCollection.Find(u => u.Name == userName).First(); 
+		//userName = result.Name;
+		userId = result.Id;
 		GD.Print(userName);
 		userMoney = result.Money; 
 		userExp = result.Exp;
