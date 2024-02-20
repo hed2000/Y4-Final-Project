@@ -7,39 +7,36 @@ var skins = {
 	"blue" : '["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]'
 }
 
+var Pet_Name
+var Pet_Type
+var Owned_Skins
+var Active_Skin
 var Money
-var ownedSkins
-var activeSkin
+var Active_Tasks
+
+var Save_Data
 #var database_script = load("res://main.cs")
 #var database = database_script.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Money = 500
-	ownedSkins = ["ginger", "blue"]
-	activeSkin = "ginger"
-	load_sprite(activeSkin)
-	%MoneyLabel.text = "%d" % Money
+	#reset_save()
+	
+	if not FileAccess.file_exists("user://save_game.dat"):
+		print("File does not exist")
+		new_game()
+	else: 
+		var file = FileAccess.open("user://save_game.dat", FileAccess.READ)
+		var content = file.get_as_text()
+		if content == "":
+			print("File is empty")
+			new_game()
+		else: 
+			load_game()
 	
 	%shopGridContainer.shop_button_pressed.connect(_shop_button)
 	%taskGridContainer.task_completed.connect(task_completed)
-	
-	save_game()
-	var loaded = load_game()
-	print(loaded)
-	var loaded_dict = str_to_var(loaded)
-	print(loaded_dict["money"])
-	
-func array_to_string(array): # used for saving game data
-	var newstr = "["
-	for i in array:
-		print(i)
-		newstr += '"' + str(i) + '"'
-		if i != array[-1]: # checks last element of array
-			newstr += ", "
-	newstr += "]"
-	return(newstr)
-	
-
+		
+		
 func _shop_button(name, price):
 	if int(%MoneyLabel.text) >= price:
 		match name:
@@ -93,32 +90,16 @@ func load_sprite(string):
 func update_money(amount):
 	Money += amount
 	%MoneyLabel.text = "%d" % Money
-	
-func _on_username_text_submitted(new_text):
-	#database.userName = new_text
-	pass
-	
-func _on_password_text_submitted(new_text):
-	#new_text = new_text.sha256_text()
-	#database.set_password(new_text)
-	pass
-
-func _on_login_button_pressed():
-	#var string = database.login()
-	#print(string)
-	#if (string == "login successful"):
-	#	%Login.hide()
-	#	database.get_user_info()
-	#	database.get_pet_skin()
-	#	load_sprite()
-	#	%MoneyLabel.text = "%d" % database.userMoney
-	pass
+	save_game()
 
 func make_save():
 	var save_dict = {
+		"petname" : Pet_Name,
+		"pettype" : Pet_Type,
+		"ownedskins" : Owned_Skins,
+		"activeskin" : Active_Skin,
 		"money" : Money,
-		"ownedskins" : ownedSkins,
-		"activeskin" : activeSkin
+		"activetasks" : Active_Tasks
 	}
 	return save_dict
 		
@@ -130,4 +111,40 @@ func save_game():
 func load_game():
 	var file = FileAccess.open("user://save_game.dat", FileAccess.READ)
 	var content = file.get_as_text()
-	return content
+	Save_Data = content
+	
+	print(Save_Data)
+	var save_dict = str_to_var(Save_Data)
+	
+	Money = save_dict["money"]
+	Active_Skin = save_dict["activeskin"]
+	load_sprite(Active_Skin)
+	%MoneyLabel.text = "%d" % Money
+	
+func reset_save():
+	var file = FileAccess.open("user://save_game.dat", FileAccess.WRITE)
+	file.store_string("")
+	
+func new_game():
+	Money = 500
+	Pet_Type = "cat"
+	Active_Tasks = []
+	%NewGame.show()
+
+func _on_pet_name_text_changed(new_text):
+	Pet_Name = new_text
+
+func _on_cat_button_pressed():
+	Pet_Type = "cat"
+	Active_Skin = "ginger"
+	Owned_Skins = ["ginger"]
+
+func _on_dog_button_pressed():
+	Pet_Type = "dog"
+	Active_Skin = "blue"
+	Owned_Skins = ["ginger", "blue"]
+
+func _on_new_game_start_button_pressed():
+	save_game()
+	load_game()
+	%NewGame.hide()
