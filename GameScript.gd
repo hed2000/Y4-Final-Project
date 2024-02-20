@@ -8,10 +8,10 @@ var skins_dict = {
 }
 
 var accessories_dict = {
-	# format: name : [path, price, icon]
-	"collar green" : '["res://sprites/bodyAccessories/collar green.png", 500, "res://buttons/shop/button collar green.png"]',
-	"hat green" : '["res://sprites/headAccessories/hat green.png", 500, "res://buttons/shop/button hat green.png"]',
-	"flowers pink" : '["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png"]'
+	# format: name : [path, price, icon, part]
+	"collar green" : '["res://sprites/bodyAccessories/collar green.png", 500, "res://buttons/shop/button collar green.png", "body"]',
+	"hat green" : '["res://sprites/headAccessories/hat green.png", 500, "res://buttons/shop/button hat green.png", "head"]',
+	"flowers pink" : '["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png", "head"]'
 }
 
 var Pet_Name
@@ -26,8 +26,6 @@ var Owned_Accessories
 var Active_Accessories
 
 var Save_Data
-
-signal load_shop(accessories, include)
 
 func _ready():
 	
@@ -44,22 +42,32 @@ func _ready():
 		else: 
 			load_game()
 	
-	%shopGridContainer.shop_button_pressed.connect(_shop_button)
+	%shopGridContainer.shop_button_pressed.connect(shop_button)
 	%taskGridContainer.task_completed.connect(task_completed)
+	%inventoryGridContainer.inventory_button_pressed.connect(equip_item)
 		
+func equip_item(name):
+	if name == "clear":
+		%headAccessory.texture = null
+		%bodyAccessory.texture = null
+		Active_Accessories[0] = ""
+		Active_Accessories[1] = ""
+		save_game()
+	else:
+		var itemdata = str_to_var(accessories_dict[name])
+		match itemdata[3]:
+			"head":
+				%headAccessory.texture = load(itemdata[0])
+				Active_Accessories[0] = name
+				save_game()
+			"body":
+				%bodyAccessory.texture = load(itemdata[0])
+				Active_Accessories[1] = name
+				save_game()
+	print(Active_Accessories)
 		
-func _shop_button(name, price):
+func shop_button(name, price):
 	if int(%MoneyLabel.text) >= price:
-		match name:
-			"collar green":
-				%bodyAccessory.texture = load("res://sprites/bodyAccessories/collar green.png")
-			"hat green":
-				%headAccessory.texture = load("res://sprites/headAccessories/hat green.png")
-			"flowers pink":
-				%headAccessory.texture = load("res://sprites/headAccessories/flowers pink.png")
-			"? 10000":
-				%headAccessory.texture = null
-				%bodyAccessory.texture = null
 		update_money(-price)
 		%MoneyLabel.text = "%d" % Money
 		Owned_Accessories.append(name)
@@ -78,12 +86,12 @@ func _on_add_button_pressed():
 	update_money(100)
 
 func _on_button_1_pressed():
-	load_shop.emit(accessories_dict, Shop_Include)
 	%shopGridContainer.load_shop(accessories_dict, Shop_Include)
 	%shop.show()
 	
 func _on_button_2_pressed():
-	pass
+	%inventoryGridContainer.load_inventory(accessories_dict, Owned_Accessories)
+	%inventory.show()
 
 func _on_button_3_pressed():
 	pass
@@ -99,6 +107,9 @@ func _on_shop_exit_button_pressed():
 	
 func _on_task_exit_button_pressed():
 	%tasks.hide()
+	
+func _on_inventory_exit_button_pressed():
+	%inventory.hide()
 	
 func shop_button_pressed(string):
 	print(string)

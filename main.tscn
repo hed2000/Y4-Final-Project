@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://wju6gq1ayjcc"]
+[gd_scene load_steps=42 format=3 uid="uid://wju6gq1ayjcc"]
 
 [ext_resource type="Script" path="res://main.cs" id="1_ls1pd"]
 [ext_resource type="Texture2D" uid="uid://ch06moskwywow" path="res://placeholder bg.png" id="1_vrwm4"]
@@ -31,6 +31,7 @@
 [ext_resource type="Texture2D" uid="uid://bqfi5kyjfkban" path="res://button exit.png" id="20_6m7l3"]
 [ext_resource type="Script" path="res://shopGridContainer.gd" id="26_jond8"]
 [ext_resource type="Script" path="res://shop.gd" id="29_aieto"]
+[ext_resource type="Script" path="res://inventoryGridContainer.gd" id="32_gkck5"]
 [ext_resource type="Script" path="res://tasks.gd" id="32_k8mn3"]
 [ext_resource type="Script" path="res://taskGridContainer.gd" id="33_m86s1"]
 
@@ -428,6 +429,39 @@ layout_mode = 2
 columns = 3
 script = ExtResource("26_jond8")
 
+[node name="inventory" type="VSplitContainer" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 110.0
+offset_bottom = -166.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameScript/inventory"]
+layout_mode = 2
+theme_override_constants/separation = 355
+
+[node name="Label" type="Label" parent="GameScript/inventory/HBoxContainer"]
+layout_mode = 2
+text = "Inventory"
+label_settings = SubResource("LabelSettings_gxtp8")
+
+[node name="inventoryExitButton" type="TextureButton" parent="GameScript/inventory/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("20_6m7l3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GameScript/inventory"]
+layout_mode = 2
+
+[node name="inventoryGridContainer" type="GridContainer" parent="GameScript/inventory/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+script = ExtResource("32_gkck5")
+
 [node name="tasks" type="VSplitContainer" parent="GameScript"]
 unique_name_in_owner = true
 visible = false
@@ -636,6 +670,7 @@ text = "Dog
 [connection signal="pressed" from="GameScript/BottomBarContainer/Button5" to="GameScript" method="_on_button_5_pressed"]
 [connection signal="pressed" from="GameScript/addButton" to="GameScript" method="_on_add_button_pressed"]
 [connection signal="pressed" from="GameScript/shop/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
+[connection signal="pressed" from="GameScript/inventory/HBoxContainer/inventoryExitButton" to="GameScript" method="_on_inventory_exit_button_pressed"]
 [connection signal="pressed" from="GameScript/tasks/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]
 [connection signal="text_changed" from="GameScript/NewGame/PetName" to="GameScript" method="_on_pet_name_text_changed"]
 [connection signal="pressed" from="GameScript/NewGame/NewGameStartButton" to="GameScript" method="_on_new_game_start_button_pressed"]

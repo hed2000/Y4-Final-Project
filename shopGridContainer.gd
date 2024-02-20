@@ -12,10 +12,8 @@ func load_shop(accessories, include):
 		n.queue_free()
 	
 	for i in include:
-		print(i)
 		button = Button.new()
 		item_data = str_to_var(accessories[i])
-		print(item_data)
 		button.text = str(item_data[1])
 		button.icon = load(item_data[2])
 		button.pressed.connect(self.button_pressed.bind(i, item_data[1]))
