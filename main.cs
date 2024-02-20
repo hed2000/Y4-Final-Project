@@ -30,7 +30,7 @@ public partial class main : Node
 	
 	public void init() {
 		
-		const string connectionUri = "mongodb://admin:admin5password@ac-sskbxuk-shard-00-00.64h8yuk.mongodb.net:27017,ac-sskbxuk-shard-00-01.64h8yuk.mongodb.net:27017,ac-sskbxuk-shard-00-02.64h8yuk.mongodb.net:27017/?ssl=true&replicaSet=atlas-spne92-shard-0&authSource=admin&retryWrites=true&w=majority";
+		const string connectionUri = "mongodb+srv://admin:admin5password@cluster0.64h8yuk.mongodb.net/?retryWrites=true&w=majority";
 		var settings = MongoClientSettings.FromConnectionString(connectionUri);
 
 		// Set the ServerApi field of the settings object to set the version of the Stable API on the client
@@ -55,7 +55,9 @@ public partial class main : Node
 		usersCollection = applicationDatabase.GetCollection<User>("user");
 		
 		var result = usersCollection.Find(u => u.Id == userId).First(); 
+		//var result = usersCollection.Find(u => u.Name == userName).First(); 
 		userName = result.Name;
+		//userId = result.Id;
 		GD.Print(userName);
 		userMoney = result.Money; 
 		userExp = result.Exp;

@@ -9,6 +9,11 @@ func _ready():
 	database.init()
 	if !database.userName:
 		%Login.show()
+	else:
+		database.get_user_info()
+		database.get_pet_skin()
+		load_sprite()
+		%MoneyLabel.text = "%d" % database.userMoney
 	
 	%shopGridContainer.shop_button_pressed.connect(_shop_button)
 	%taskGridContainer.task_completed.connect(task_completed)
