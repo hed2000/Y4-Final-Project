@@ -20,7 +20,7 @@ var daily_tasks = {
 }
 
 var active_tasks = {
-	# name : [type, money, exp]
+	# name : [type, money]
 }
 
 var Pet_Name 
@@ -38,7 +38,8 @@ var Save_Data
 
 func _ready():
 	
-	reset_save()
+	#reset_save()
+	
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
 		new_game()
@@ -106,6 +107,7 @@ func _on_button_3_pressed():
 	pass
 
 func _on_button_4_pressed():
+	%taskGridContainer.load_tasks(active_tasks)
 	$tasks.show()
 
 func _on_button_5_pressed():

@@ -1,23 +1,25 @@
-extends GridContainer
+extends VBoxContainer
 
-signal task_completed(taskId)
+signal task_completed(string)
 
-func generate_tasks(taskId, taskName, taskMoney):
+# Called when the node enters the scene tree for the first time.
+func load_tasks(active):
+	var task = %Task
 	
 	# clears previously generated tasks
 	for n in get_children():
-		print("queue freed")
 		n.queue_free()
-		
-	var button
-	var i = 0
-	while i < taskId.size():	
-		button = Button.new()
-		button.text = taskName[i] + " " + str(taskMoney[i])
-		button.icon = load("res://button unknown.png")
-		button.pressed.connect(self.button_pressed.bind(taskId[i]))
-		add_child(button)
-		i += 1
+	
+	for i in active:
+		var newtask = task.duplicate()
+		var task_data = active[i]
+		var text = newtask.get_node("Label")
+		text.text = i + " - " + str(task_data[1]) + " coins"
+		#button.icon = load(item_"""data[2])
+		#button.pressed.connect(self.button_pressed.bind(i, item_data[1]))
+		newtask.show()
+		add_child(newtask)
 
-func button_pressed(taskId):
-	task_completed.emit(taskId)
+
+func button_pressed(name):
+	task_completed.emit(name)
