@@ -14,6 +14,15 @@ var accessories_dict = {
 	"flowers pink" : '["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png", "head"]'
 }
 
+# used to add these stored tasks to the active_tasks list daily
+var daily_tasks = {
+	# format: name : [type, money, exp]
+}
+
+var active_tasks = {
+	# format: name : [type, money, exp]
+}
+
 var Pet_Name
 var Pet_Type
 var Owned_Skins
@@ -24,12 +33,13 @@ var Shop_Include
 var Skins_Include
 var Owned_Accessories
 var Active_Accessories
+var Last_Login
 
 var Save_Data
 
 func _ready():
 	
-	#reset_save()
+	reset_save()
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
 		new_game()
@@ -151,7 +161,8 @@ func make_save():
 		"shopinclude" : Shop_Include,
 		"skinsinclude" : Skins_Include,
 		"ownedaccessories" : Owned_Accessories,
-		"activeaccessories" : Active_Accessories
+		"activeaccessories" : Active_Accessories,
+		"lastlogin" : Last_Login
 	}
 	return save_dict
 		
@@ -179,6 +190,13 @@ func load_game():
 	Owned_Accessories = save_dict["ownedaccessories"]
 	Active_Accessories = save_dict["activeaccessories"]
 	
+	
+	Last_Login = save_dict["lastlogin"]
+	var currentlogin = Time.get_date_dict_from_system()
+	if currentlogin != Last_Login:
+		print("daily reset")
+	Last_Login = currentlogin
+	
 	load_sprite(Active_Skin)
 	%MoneyLabel.text = "%d" % Money
 	
@@ -196,6 +214,7 @@ func new_game():
 	Skins_Include = ["blue"]
 	Owned_Accessories = []
 	Active_Accessories = ["", ""] # head, body
+	Last_Login = Time.get_date_dict_from_system()
 	%NewGame.show()
 
 func _on_pet_name_text_changed(new_text):
