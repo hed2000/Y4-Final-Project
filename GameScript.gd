@@ -125,8 +125,8 @@ func _on_inventory_exit_button_pressed():
 func shop_button_pressed(string):
 	print(string)
 
-func task_completed(taskId):
-	print("e")
+func task_completed(taskName):
+	print(taskName)
 	
 func load_sprite(string):
 	var array = skins_dict[string]

@@ -5,6 +5,7 @@ signal task_completed(string)
 # Called when the node enters the scene tree for the first time.
 func load_tasks(active):
 	var task = %Task
+	var task_script = preload("res://taskGridContainer.gd").new()
 	
 	# clears previously generated tasks
 	for n in get_children():
@@ -15,8 +16,8 @@ func load_tasks(active):
 		var task_data = active[i]
 		var text = newtask.get_node("Label")
 		text.text = i + " - " + str(task_data[1]) + " coins"
-		#button.icon = load(item_"""data[2])
-		#button.pressed.connect(self.button_pressed.bind(i, item_data[1]))
+		var button = newtask.get_node("CompleteTaskButton")
+		button.pressed.connect(self.button_pressed.bind(i))
 		newtask.show()
 		add_child(newtask)
 
