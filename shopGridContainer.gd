@@ -13,7 +13,7 @@ func load_shop(accessories, include):
 	
 	for i in include:
 		button = Button.new()
-		item_data = str_to_var(accessories[i])
+		item_data = accessories[i]
 		button.text = str(item_data[1])
 		button.icon = load(item_data[2])
 		button.pressed.connect(self.button_pressed.bind(i, item_data[1]))

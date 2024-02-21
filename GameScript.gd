@@ -3,15 +3,15 @@ extends Node
 # dictionaries
 var skins_dict = {
 	# format: name : [headpath, bodypath, tailpath, price]
-	"ginger" : '["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0]',
-	"blue" : '["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]'
+	"ginger" : ["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0],
+	"blue" : ["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]
 }
 
 var accessories_dict = {
 	# format: name : [path, price, icon, part]
-	"collar green" : '["res://sprites/bodyAccessories/collar green.png", 500, "res://buttons/shop/button collar green.png", "body"]',
-	"hat green" : '["res://sprites/headAccessories/hat green.png", 500, "res://buttons/shop/button hat green.png", "head"]',
-	"flowers pink" : '["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png", "head"]'
+	"collar green" : ["res://sprites/bodyAccessories/collar green.png", 500, "res://buttons/shop/button collar green.png", "body"],
+	"hat green" : ["res://sprites/headAccessories/hat green.png", 500, "res://buttons/shop/button hat green.png", "head"],
+	"flowers pink" : ["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png", "head"]
 }
 
 # used to add these stored tasks to the active_tasks list daily
@@ -64,7 +64,7 @@ func equip_item(name):
 		Active_Accessories[1] = ""
 		save_game()
 	else:
-		var itemdata = str_to_var(accessories_dict[name])
+		var itemdata = accessories_dict[name]
 		match itemdata[3]:
 			"head":
 				%headAccessory.texture = load(itemdata[0])
@@ -126,21 +126,18 @@ func shop_button_pressed(string):
 
 func task_completed(taskId):
 	print("e")
-	#database.complete_task(taskId)
-	#%MoneyLabel.text = "%d" % database.userMoney
 	
 func load_sprite(string):
-	var string_array = skins_dict[string]
-	var array = str_to_var(string_array)
+	var array = skins_dict[string]
 	%head.texture = load(array[0])
 	%body.texture = load(array[1])
 	%tail.texture = load(array[2])
 	print(Active_Accessories)
 	if Active_Accessories[0] != "":
-		var itemdata = str_to_var(accessories_dict[Active_Accessories[0]])
+		var itemdata = accessories_dict[Active_Accessories[0]]
 		%headAccessory.texture = load(itemdata[0])
 	if Active_Accessories[1] != "":
-		var itemdata = str_to_var(accessories_dict[Active_Accessories[1]])
+		var itemdata = accessories_dict[Active_Accessories[1]]
 		print(itemdata)
 		%bodyAccessory.texture = load(itemdata[0])
 		

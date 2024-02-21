@@ -19,7 +19,7 @@ func load_inventory(accessories, owned):
 	
 	for i in owned:
 		button = Button.new()
-		item_data = str_to_var(accessories[i])
+		item_data = accessories[i]
 		button.text = i
 		button.icon = load(item_data[2])
 		button.pressed.connect(self.button_pressed.bind(i))
