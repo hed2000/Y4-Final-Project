@@ -199,6 +199,9 @@ func load_game():
 	var currentlogin = Time.get_date_dict_from_system()
 	if currentlogin != Last_Login:
 		print("daily reset")
+		for k in daily_tasks:
+			if !active_tasks.has(k):
+				active_tasks[k] = daily_tasks[k]
 	Last_Login = currentlogin
 	
 	load_sprite(Active_Skin)
