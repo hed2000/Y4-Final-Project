@@ -2,13 +2,13 @@ extends Node
 
 # dictionaries
 var skins_dict = {
-	# format: name : [headpath, bodypath, tailpath, price]
+	# name : [headpath, bodypath, tailpath, price]
 	"ginger" : ["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0],
 	"blue" : ["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]
 }
 
 var accessories_dict = {
-	# format: name : [path, price, icon, part]
+	# name : [path, price, icon, part]
 	"collar green" : ["res://sprites/bodyAccessories/collar green.png", 500, "res://buttons/shop/button collar green.png", "body"],
 	"hat green" : ["res://sprites/headAccessories/hat green.png", 500, "res://buttons/shop/button hat green.png", "head"],
 	"flowers pink" : ["res://sprites/headAccessories/flowers pink.png", 1000, "res://buttons/shop/button flowers pink.png", "head"]
@@ -16,23 +16,22 @@ var accessories_dict = {
 
 # used to add these stored tasks to the active_tasks list daily
 var daily_tasks = {
-	# format: name : [type, money, exp]
+	# name : [type, money]
 }
 
 var active_tasks = {
-	# format: name : [type, money, exp]
+	# name : [type, money, exp]
 }
 
-var Pet_Name
-var Pet_Type
+var Pet_Name 
+var Pet_Type # which animal the pet is
 var Owned_Skins
-var Active_Skin
+var Active_Skin # currently equipped skin
 var Money
-var Active_Tasks
-var Shop_Include
-var Skins_Include
+var Shop_Include = [] # non-owned items to include in shop
+var Skins_Include = [] # non-owned skins to include in shop
 var Owned_Accessories
-var Active_Accessories
+var Active_Accessories # currently equipped accessories
 var Last_Login
 
 var Save_Data
@@ -154,12 +153,13 @@ func make_save():
 		"ownedskins" : Owned_Skins,
 		"activeskin" : Active_Skin,
 		"money" : Money,
-		"activetasks" : Active_Tasks,
 		"shopinclude" : Shop_Include,
 		"skinsinclude" : Skins_Include,
 		"ownedaccessories" : Owned_Accessories,
 		"activeaccessories" : Active_Accessories,
-		"lastlogin" : Last_Login
+		"lastlogin" : Last_Login,
+		"dailytasks" : daily_tasks,
+		"activetasks" : active_tasks,
 	}
 	return save_dict
 		
@@ -181,11 +181,12 @@ func load_game():
 	Owned_Skins = save_dict["ownedskins"]
 	Active_Skin = save_dict["activeskin"]
 	Money = save_dict["money"]
-	Active_Tasks = save_dict["activetasks"]
 	Shop_Include = save_dict["shopinclude"]
 	Skins_Include = save_dict["skinsinclude"]
 	Owned_Accessories = save_dict["ownedaccessories"]
 	Active_Accessories = save_dict["activeaccessories"]
+	daily_tasks = save_dict["dailytasks"]
+	active_tasks = save_dict["activetasks"]
 	
 	
 	Last_Login = save_dict["lastlogin"]
@@ -206,9 +207,21 @@ func new_game():
 	# initialising variables to be saved
 	Money = 500
 	Pet_Type = "cat"
-	Active_Tasks = []
-	Shop_Include = ["collar green", "hat green", "flowers pink"]
-	Skins_Include = ["blue"]
+	# initialise default daily tasks
+	daily_tasks = {
+		"brush teeth" : ["daily", 50],
+		"drink water" : ["daily", 50]
+	}
+	active_tasks = daily_tasks.duplicate() # adds all daily tasks to new dictionary
+	# adds all items to unbought items array
+	for key in accessories_dict:
+		Shop_Include.append(key)
+	print(Shop_Include)
+	# adds all non-default skins to unbought skins array
+	for key in skins_dict:
+		if key != "ginger": # FUTURE NOTE: add all default skins here
+			Skins_Include.append(key)
+	print(Skins_Include)
 	Owned_Accessories = []
 	Active_Accessories = ["", ""] # head, body
 	Last_Login = Time.get_date_dict_from_system()
@@ -220,13 +233,13 @@ func _on_pet_name_text_changed(new_text):
 func _on_cat_button_pressed():
 	Pet_Type = "cat"
 	Active_Skin = "ginger"
-	Owned_Skins = ["ginger"]
+	Owned_Skins = ["ginger"] # FUTURE NOTE add all default pet skins here
 
 func _on_dog_button_pressed():
 	Pet_Type = "dog"
 	Active_Skin = "ginger"
-	Owned_Skins = ["ginger"]
-
+	Owned_Skins = ["ginger"] # FUTURE NOTE add all default pet skins here
+	
 func _on_new_game_start_button_pressed():
 	save_game()
 	load_game()
