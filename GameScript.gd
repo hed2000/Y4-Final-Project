@@ -126,7 +126,11 @@ func shop_button_pressed(string):
 	print(string)
 
 func task_completed(taskName):
-	print(taskName)
+	var taskdata = active_tasks[taskName]
+	update_money(taskdata[1])
+	active_tasks.erase(taskName)
+	%taskGridContainer.load_tasks(active_tasks)
+	save_game()
 	
 func load_sprite(string):
 	var array = skins_dict[string]

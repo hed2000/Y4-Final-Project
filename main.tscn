@@ -465,6 +465,7 @@ script = ExtResource("32_gkck5")
 
 [node name="tasks" type="VSplitContainer" parent="GameScript"]
 unique_name_in_owner = true
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -494,38 +495,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("33_m86s1")
-
-[node name="Task" type="TextureRect" parent="GameScript/tasks/ScrollContainer/taskGridContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("35_8gv4j")
-
-[node name="Label" type="Label" parent="GameScript/tasks/ScrollContainer/taskGridContainer/Task"]
-layout_mode = 0
-offset_left = 21.0
-offset_top = 21.0
-offset_right = 468.0
-offset_bottom = 192.0
-theme_override_font_sizes/font_size = 40
-text = "Example task - 125 coins"
-autowrap_mode = 2
-
-[node name="CompleteTaskButton" type="TextureButton" parent="GameScript/tasks/ScrollContainer/taskGridContainer/Task"]
-layout_mode = 0
-offset_left = 474.0
-offset_top = -1.0
-offset_right = 634.0
-offset_bottom = 163.0
-texture_normal = ExtResource("3_fi8o8")
-
-[node name="CancelTaskButton" type="TextureButton" parent="GameScript/tasks/ScrollContainer/taskGridContainer/Task"]
-layout_mode = 0
-offset_left = 632.0
-offset_right = 792.0
-offset_bottom = 164.0
-texture_normal = ExtResource("20_6m7l3")
 
 [node name="NewGame" type="Control" parent="GameScript"]
 unique_name_in_owner = true
@@ -692,6 +661,40 @@ scale = Vector2(1.2, 1)
 theme_override_font_sizes/font_size = 45
 text = "Dog
 "
+
+[node name="Task" type="TextureRect" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+offset_top = 286.0
+offset_right = 796.0
+offset_bottom = 442.0
+size_flags_vertical = 4
+texture = ExtResource("35_8gv4j")
+
+[node name="Label" type="Label" parent="GameScript/Task"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 21.0
+offset_right = 468.0
+offset_bottom = 192.0
+theme_override_font_sizes/font_size = 40
+text = "Example task - 125 coins"
+autowrap_mode = 2
+
+[node name="CompleteTaskButton" type="TextureButton" parent="GameScript/Task"]
+layout_mode = 0
+offset_left = 474.0
+offset_top = -1.0
+offset_right = 634.0
+offset_bottom = 163.0
+texture_normal = ExtResource("3_fi8o8")
+
+[node name="CancelTaskButton" type="TextureButton" parent="GameScript/Task"]
+layout_mode = 0
+offset_left = 632.0
+offset_right = 792.0
+offset_bottom = 164.0
+texture_normal = ExtResource("20_6m7l3")
 
 [connection signal="pressed" from="GameScript/BottomBarContainer/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="GameScript/BottomBarContainer/Button1" to="GameScript" method="_on_button_1_pressed"]
