@@ -2,9 +2,9 @@ extends Node
 
 # dictionaries
 var skins_dict = {
-	# name : [headpath, bodypath, tailpath, price]
-	"ginger" : ["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0],
-	"blue" : ["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500]
+	# name : [headpath, bodypath, tailpath, price, icon]
+	"ginger" : ["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0, "res://buttons/shop/button ginger.png"],
+	"blue" : ["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500, "res://buttons/shop/button blue.png"]
 }
 
 var accessories_dict = {
@@ -52,7 +52,7 @@ func _ready():
 		else: 
 			load_game()
 	
-	%shopGridContainer.shop_button_pressed.connect(shop_button)
+	%shopGridContainer.shop_button_pressed.connect(buy_accessory)
 	%taskGridContainer.task_completed.connect(task_completed)
 	%inventoryGridContainer.inventory_button_pressed.connect(equip_item)
 		
@@ -76,7 +76,7 @@ func equip_item(name):
 				save_game()
 	print(Active_Accessories)
 		
-func shop_button(name, price):
+func buy_accessory(name, price):
 	if int(%MoneyLabel.text) >= price:
 		update_money(-price)
 		%MoneyLabel.text = "%d" % Money
@@ -96,8 +96,15 @@ func _on_add_button_pressed():
 	update_money(100)
 
 func _on_button_1_pressed():
-	%shopGridContainer.load_shop(accessories_dict, Shop_Include)
-	%shop.show()
+	%shopGridContainer.load_shop(accessories_dict, Shop_Include) # loads shop with available accessories
+	%shop.show() # unhides shop node
+	
+func _on_accessories_button_pressed():
+	%shopGridContainer.load_shop(accessories_dict, Shop_Include) # loads shop with available accessories
+
+func _on_patterns_button_pressed():
+	%shopGridContainer.load_shop_skins(skins_dict, Skins_Include) # loads shop with available patterns
+
 	
 func _on_button_2_pressed():
 	%inventoryGridContainer.load_inventory(accessories_dict, Owned_Accessories)
