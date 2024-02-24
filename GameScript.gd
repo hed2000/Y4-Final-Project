@@ -52,7 +52,8 @@ func _ready():
 		else: 
 			load_game()
 	
-	%shopGridContainer.shop_button_pressed.connect(buy_accessory)
+	%shopGridContainer.item_bought.connect(buy_accessory)
+	%shopGridContainer.skin_bought.connect(buy_skin)
 	%taskGridContainer.task_completed.connect(task_completed)
 	%inventoryGridContainer.inventory_button_pressed.connect(equip_item)
 		
@@ -77,18 +78,31 @@ func equip_item(name):
 	print(Active_Accessories)
 		
 func buy_accessory(name, price):
-	if int(%MoneyLabel.text) >= price:
+	if Money >= price:
 		update_money(-price)
-		%MoneyLabel.text = "%d" % Money
 		Owned_Accessories.append(name)
 		var i = 0
-		while i < len(Shop_Include):
+		while i < len(Shop_Include): # iterate through accessories to show in shop and remove the one that was just bought
 			if Shop_Include[i] == name:
 				Shop_Include.remove_at(i)
 			i += 1
 		%shopGridContainer.load_shop(accessories_dict, Shop_Include)
 		save_game()
 	else: 
+		print("Not enough money")
+		
+func buy_skin(name, price):
+	if Money >= price:
+		update_money(-price)
+		Owned_Skins.append(name)
+		var i = 0
+		while i < len(Skins_Include):
+			if Skins_Include[i] == name:
+				Skins_Include.remove_at(i)
+			i += 1
+		%shopGridContainer.load_shop_skins(skins_dict, Skins_Include)
+		save_game()
+	else:
 		print("Not enough money")
 	
 	
@@ -156,7 +170,7 @@ func load_sprite(string):
 		
 func update_money(amount):
 	Money += amount
-	%MoneyLabel.text = "%d" % Money
+	%MoneyLabel.text = str(Money)
 	save_game()
 
 func make_save():
