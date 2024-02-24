@@ -285,3 +285,20 @@ func _on_new_game_start_button_pressed():
 	save_game()
 	load_game()
 	%NewGame.hide()
+
+
+func _on_create_task_button_pressed():
+	var new_task = %NewTask.get_task_data()
+	print(new_task)
+	if new_task != null:
+		active_tasks[new_task[0]] = [new_task[1], new_task[2]]
+		if new_task[1] == "daily":
+			daily_tasks[new_task[0]] = [new_task[1], new_task[2]]
+		save_game()
+		%NewTask.hide()
+		%NewTask.clear_input()
+		%taskGridContainer.load_tasks(active_tasks)
+
+
+func _on_new_task_button_pressed():
+	%NewTask.show()

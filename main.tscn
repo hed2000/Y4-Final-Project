@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://wju6gq1ayjcc"]
+[gd_scene load_steps=44 format=3 uid="uid://wju6gq1ayjcc"]
 
 [ext_resource type="Script" path="res://main.cs" id="1_ls1pd"]
 [ext_resource type="Texture2D" uid="uid://ch06moskwywow" path="res://placeholder bg.png" id="1_vrwm4"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" path="res://tasks.gd" id="32_k8mn3"]
 [ext_resource type="Script" path="res://taskGridContainer.gd" id="33_m86s1"]
 [ext_resource type="Texture2D" uid="uid://cw3qhhjugkhfw" path="res://task.png" id="35_8gv4j"]
+[ext_resource type="Script" path="res://NewTask.gd" id="35_iruee"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_utqtj"]
 
@@ -585,11 +586,11 @@ label_settings = SubResource("LabelSettings_gxtp8")
 layout_mode = 2
 texture_normal = ExtResource("20_6m7l3")
 
-[node name="TextureButton" type="TextureButton" parent="GameScript/tasks/VBoxContainer"]
+[node name="NewTaskButton" type="TextureButton" parent="GameScript/tasks/VBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("16_p7ybc")
 
-[node name="Label" type="Label" parent="GameScript/tasks/VBoxContainer/TextureButton"]
+[node name="Label" type="Label" parent="GameScript/tasks/VBoxContainer/NewTaskButton"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -779,6 +780,215 @@ theme_override_font_sizes/font_size = 45
 text = "Dog
 "
 
+[node name="NewTask" type="Control" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("35_iruee")
+
+[node name="TextureRect" type="TextureRect" parent="GameScript/NewTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -516.0
+offset_right = 305.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_p7ybc")
+
+[node name="TaskName" type="LineEdit" parent="GameScript/NewTask"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -172.0
+offset_top = -246.0
+offset_right = 175.0
+offset_bottom = -196.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameScript/NewTask/TaskName"]
+layout_mode = 0
+offset_left = -99.0
+offset_top = -70.0
+offset_right = 441.0
+offset_bottom = -15.0
+theme_override_font_sizes/font_size = 40
+text = "Enter task name"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="GameScript/NewTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -483.0
+offset_right = 92.0
+offset_bottom = -387.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "Add Task"
+
+[node name="CreateTaskButton" type="TextureButton" parent="GameScript/NewTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.0
+offset_top = 165.0
+offset_right = 146.0
+offset_bottom = 275.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/NewTask/CreateTaskButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Confirm"
+
+[node name="Label2" type="Label" parent="GameScript/NewTask"]
+layout_mode = 0
+offset_left = -189.0
+offset_top = -135.0
+offset_right = 351.0
+offset_bottom = -80.0
+theme_override_font_sizes/font_size = 40
+text = "Choose task difficulty"
+
+[node name="EasyButton" type="TextureButton" parent="GameScript/NewTask"]
+layout_mode = 0
+offset_left = -249.0
+offset_top = -64.0
+offset_right = 43.0
+offset_bottom = 46.0
+scale = Vector2(0.6, 1)
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/NewTask/EasyButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.8334
+offset_top = -33.0
+offset_right = 16.1666
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.6, 1)
+theme_override_font_sizes/font_size = 45
+text = "Easy"
+
+[node name="AvgButton" type="TextureButton" parent="GameScript/NewTask"]
+layout_mode = 0
+offset_left = -69.0
+offset_top = -64.0
+offset_right = 223.0
+offset_bottom = 46.0
+scale = Vector2(0.6, 1)
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/NewTask/AvgButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -33.0
+offset_right = 34.0001
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.6, 1)
+theme_override_font_sizes/font_size = 45
+text = "Average"
+
+[node name="HardButton" type="TextureButton" parent="GameScript/NewTask"]
+layout_mode = 0
+offset_left = 109.0
+offset_top = -64.0
+offset_right = 401.0
+offset_bottom = 46.0
+scale = Vector2(0.6, 1)
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/NewTask/HardButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.8334
+offset_top = -33.0
+offset_right = 16.1666
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.6, 1)
+theme_override_font_sizes/font_size = 45
+text = "Hard"
+
+[node name="CheckBox" type="CheckBox" parent="GameScript/NewTask"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -141.5
+offset_top = 63.5
+offset_right = 141.5
+offset_bottom = 126.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Repeat daily?"
+
 [node name="Task" type="TextureRect" parent="GameScript"]
 unique_name_in_owner = true
 visible = false
@@ -827,7 +1037,14 @@ texture_normal = ExtResource("20_6m7l3")
 [connection signal="pressed" from="GameScript/inventory/VBoxContainer/HBoxContainer3/AccessoriesInvButton" to="GameScript" method="_on_accessories_inv_button_pressed"]
 [connection signal="pressed" from="GameScript/inventory/VBoxContainer/HBoxContainer3/PatternsInvButton" to="GameScript" method="_on_patterns_inv_button_pressed"]
 [connection signal="pressed" from="GameScript/tasks/VBoxContainer/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]
+[connection signal="pressed" from="GameScript/tasks/VBoxContainer/NewTaskButton" to="GameScript" method="_on_new_task_button_pressed"]
 [connection signal="text_changed" from="GameScript/NewGame/PetName" to="GameScript" method="_on_pet_name_text_changed"]
 [connection signal="pressed" from="GameScript/NewGame/NewGameStartButton" to="GameScript" method="_on_new_game_start_button_pressed"]
 [connection signal="pressed" from="GameScript/NewGame/CatButton" to="GameScript" method="_on_cat_button_pressed"]
 [connection signal="pressed" from="GameScript/NewGame/DogButton" to="GameScript" method="_on_dog_button_pressed"]
+[connection signal="text_changed" from="GameScript/NewTask/TaskName" to="GameScript/NewTask" method="_on_task_name_text_changed"]
+[connection signal="pressed" from="GameScript/NewTask/CreateTaskButton" to="GameScript" method="_on_create_task_button_pressed"]
+[connection signal="pressed" from="GameScript/NewTask/EasyButton" to="GameScript/NewTask" method="_on_easy_button_pressed"]
+[connection signal="pressed" from="GameScript/NewTask/AvgButton" to="GameScript/NewTask" method="_on_avg_button_pressed"]
+[connection signal="pressed" from="GameScript/NewTask/HardButton" to="GameScript/NewTask" method="_on_hard_button_pressed"]
+[connection signal="toggled" from="GameScript/NewTask/CheckBox" to="GameScript/NewTask" method="_on_check_box_toggled"]
