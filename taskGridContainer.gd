@@ -5,7 +5,6 @@ signal task_completed(string)
 # Called when the node enters the scene tree for the first time.
 func load_tasks(active):
 	var task = %Task
-	var task_script = preload("res://taskGridContainer.gd").new()
 	
 	# clears previously generated tasks
 	for n in get_children():

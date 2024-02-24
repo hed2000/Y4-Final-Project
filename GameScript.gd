@@ -59,7 +59,9 @@ func _ready():
 	%inventoryGridContainer.equip_skin.connect(equip_skin)
 		
 func equip_skin(name):
+	Active_Skin = name
 	load_sprite(name) # reloads sprite with appropriate skin
+	save_game()
 
 func equip_item(name):
 	if name == "clear":
