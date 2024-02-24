@@ -55,8 +55,12 @@ func _ready():
 	%shopGridContainer.item_bought.connect(buy_accessory)
 	%shopGridContainer.skin_bought.connect(buy_skin)
 	%taskGridContainer.task_completed.connect(task_completed)
-	%inventoryGridContainer.inventory_button_pressed.connect(equip_item)
+	%inventoryGridContainer.equip_item.connect(equip_item)
+	%inventoryGridContainer.equip_skin.connect(equip_skin)
 		
+func equip_skin(name):
+	load_sprite(name) # reloads sprite with appropriate skin
+
 func equip_item(name):
 	if name == "clear":
 		%headAccessory.texture = null
@@ -118,11 +122,16 @@ func _on_accessories_button_pressed():
 
 func _on_patterns_button_pressed():
 	%shopGridContainer.load_shop_skins(skins_dict, Skins_Include) # loads shop with available patterns
-
 	
 func _on_button_2_pressed():
 	%inventoryGridContainer.load_inventory(accessories_dict, Owned_Accessories)
 	%inventory.show()
+	
+func _on_accessories_inv_button_pressed():
+	%inventoryGridContainer.load_inventory(accessories_dict, Owned_Accessories)
+
+func _on_patterns_inv_button_pressed():
+	%inventoryGridContainer.load_inventory_skins(skins_dict, Owned_Skins)
 
 func _on_button_3_pressed():
 	pass

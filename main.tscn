@@ -488,18 +488,65 @@ offset_bottom = -166.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameScript/inventory"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameScript/inventory"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameScript/inventory/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 355
 
-[node name="Label" type="Label" parent="GameScript/inventory/HBoxContainer"]
+[node name="Label" type="Label" parent="GameScript/inventory/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Inventory"
 label_settings = SubResource("LabelSettings_gxtp8")
 
-[node name="inventoryExitButton" type="TextureButton" parent="GameScript/inventory/HBoxContainer"]
+[node name="inventoryExitButton" type="TextureButton" parent="GameScript/inventory/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 texture_normal = ExtResource("20_6m7l3")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GameScript/inventory/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AccessoriesInvButton" type="TextureButton" parent="GameScript/inventory/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/inventory/VBoxContainer/HBoxContainer3/AccessoriesInvButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.5
+offset_top = -27.5
+offset_right = 110.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Accessories"
+
+[node name="PatternsInvButton" type="TextureButton" parent="GameScript/inventory/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label2" type="Label" parent="GameScript/inventory/VBoxContainer/HBoxContainer3/PatternsInvButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -27.5
+offset_right = 123.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Patterns"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="GameScript/inventory"]
 layout_mode = 2
@@ -753,7 +800,9 @@ texture_normal = ExtResource("20_6m7l3")
 [connection signal="pressed" from="GameScript/shop/VBoxContainer/HBoxContainer/shopExitButton" to="GameScript" method="_on_shop_exit_button_pressed"]
 [connection signal="pressed" from="GameScript/shop/VBoxContainer/HBoxContainer2/AccessoriesButton" to="GameScript" method="_on_accessories_button_pressed"]
 [connection signal="pressed" from="GameScript/shop/VBoxContainer/HBoxContainer2/PatternsButton" to="GameScript" method="_on_patterns_button_pressed"]
-[connection signal="pressed" from="GameScript/inventory/HBoxContainer/inventoryExitButton" to="GameScript" method="_on_inventory_exit_button_pressed"]
+[connection signal="pressed" from="GameScript/inventory/VBoxContainer/HBoxContainer/inventoryExitButton" to="GameScript" method="_on_inventory_exit_button_pressed"]
+[connection signal="pressed" from="GameScript/inventory/VBoxContainer/HBoxContainer3/AccessoriesInvButton" to="GameScript" method="_on_accessories_inv_button_pressed"]
+[connection signal="pressed" from="GameScript/inventory/VBoxContainer/HBoxContainer3/PatternsInvButton" to="GameScript" method="_on_patterns_inv_button_pressed"]
 [connection signal="pressed" from="GameScript/tasks/HBoxContainer/taskExitButton" to="GameScript" method="_on_task_exit_button_pressed"]
 [connection signal="text_changed" from="GameScript/NewGame/PetName" to="GameScript" method="_on_pet_name_text_changed"]
 [connection signal="pressed" from="GameScript/NewGame/NewGameStartButton" to="GameScript" method="_on_new_game_start_button_pressed"]
