@@ -26,7 +26,7 @@ func load_inventory(accessories, owned):
 		button.pressed.connect(self.equip_item_button_pressed.bind(i))
 		add_child(button)
 		
-func load_inventory_skins(skins, owned):
+func load_inventory_skins(skins, owned, type):
 	var button 
 	var item_data
 	
@@ -35,12 +35,13 @@ func load_inventory_skins(skins, owned):
 		n.queue_free()
 		
 	for i in owned:
-		button = Button.new()
 		item_data = skins[i]
-		button.text = i
-		button.icon = load(item_data[4])
-		button.pressed.connect(self.equip_skin_button_pressed.bind(i))
-		add_child(button)
+		if item_data[5] == type:
+			button = Button.new()
+			button.text = i
+			button.icon = load(item_data[4])
+			button.pressed.connect(self.equip_skin_button_pressed.bind(i))
+			add_child(button)
 	
 func equip_item_button_pressed(name):
 	equip_item.emit(name)

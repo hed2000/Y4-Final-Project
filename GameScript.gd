@@ -2,9 +2,10 @@ extends Node
 
 # dictionaries
 var skins_dict = {
-	# name : [headpath, bodypath, tailpath, price, icon]
-	"ginger" : ["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0, "res://buttons/shop/button ginger.png"],
-	"blue" : ["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500, "res://buttons/shop/button blue.png"]
+	# name : [headpath, bodypath, tailpath, price, icon, type]
+	"ginger" : ["res://sprites/petSprites/cat ginger head.png", "res://sprites/petSprites/cat ginger body.png", "res://sprites/petSprites/cat ginger tail.png", 0, "res://buttons/shop/button ginger.png", "cat"],
+	"blue" : ["res://sprites/petSprites/cat blue head.png", "res://sprites/petSprites/cat blue body.png", "res://sprites/petSprites/cat blue tail.png", 500, "res://buttons/shop/button blue.png", "cat"],
+	"lab" : ["res://sprites/petSprites/dog lab head.png", "res://sprites/petSprites/dog lab body.png", "res://sprites/petSprites/dog lab tail.png", 0, "res://buttons/shop/button lab.png", "dog"]
 }
 
 var accessories_dict = {
@@ -38,7 +39,7 @@ var Save_Data
 
 func _ready():
 	
-	#reset_save()
+	reset_save()
 	
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
@@ -106,7 +107,7 @@ func buy_skin(name, price):
 			if Skins_Include[i] == name:
 				Skins_Include.remove_at(i)
 			i += 1
-		%shopGridContainer.load_shop_skins(skins_dict, Skins_Include)
+		%shopGridContainer.load_shop_skins(skins_dict, Skins_Include, Pet_Type)
 		save_game()
 	else:
 		print("Not enough money")
@@ -123,7 +124,7 @@ func _on_accessories_button_pressed():
 	%shopGridContainer.load_shop(accessories_dict, Shop_Include) # loads shop with available accessories
 
 func _on_patterns_button_pressed():
-	%shopGridContainer.load_shop_skins(skins_dict, Skins_Include) # loads shop with available patterns
+	%shopGridContainer.load_shop_skins(skins_dict, Skins_Include, Pet_Type) # loads shop with available patterns
 	
 func _on_button_2_pressed():
 	%inventoryGridContainer.load_inventory(accessories_dict, Owned_Accessories)
@@ -133,7 +134,7 @@ func _on_accessories_inv_button_pressed():
 	%inventoryGridContainer.load_inventory(accessories_dict, Owned_Accessories)
 
 func _on_patterns_inv_button_pressed():
-	%inventoryGridContainer.load_inventory_skins(skins_dict, Owned_Skins)
+	%inventoryGridContainer.load_inventory_skins(skins_dict, Owned_Skins, Pet_Type)
 
 func _on_button_3_pressed():
 	pass
@@ -260,7 +261,7 @@ func new_game():
 	print(Shop_Include)
 	# adds all non-default skins to unbought skins array
 	for key in skins_dict:
-		if key != "ginger": # FUTURE NOTE: add all default skins here
+		if key != "ginger" && key != "lab": # FUTURE NOTE: add all default skins here
 			Skins_Include.append(key)
 	print(Skins_Include)
 	Owned_Accessories = []
@@ -274,12 +275,12 @@ func _on_pet_name_text_changed(new_text):
 func _on_cat_button_pressed():
 	Pet_Type = "cat"
 	Active_Skin = "ginger"
-	Owned_Skins = ["ginger"] # FUTURE NOTE add all default pet skins here
+	Owned_Skins = ["ginger", "lab"] # FUTURE NOTE add all default pet skins here
 
 func _on_dog_button_pressed():
 	Pet_Type = "dog"
-	Active_Skin = "ginger"
-	Owned_Skins = ["ginger"] # FUTURE NOTE add all default pet skins here
+	Active_Skin = "lab"
+	Owned_Skins = ["ginger", "lab"] # FUTURE NOTE add all default pet skins here
 	
 func _on_new_game_start_button_pressed():
 	save_game()
