@@ -56,6 +56,7 @@ func _ready():
 	%shopGridContainer.item_bought.connect(buy_accessory)
 	%shopGridContainer.skin_bought.connect(buy_skin)
 	%taskGridContainer.task_completed.connect(task_completed)
+	%taskGridContainer.task_cancelled.connect(task_cancelled)
 	%inventoryGridContainer.equip_item.connect(equip_item)
 	%inventoryGridContainer.equip_skin.connect(equip_skin)
 		
@@ -161,6 +162,12 @@ func shop_button_pressed(string):
 func task_completed(taskName):
 	var taskdata = active_tasks[taskName]
 	update_money(taskdata[1])
+	active_tasks.erase(taskName)
+	%taskGridContainer.load_tasks(active_tasks)
+	save_game()
+
+func task_cancelled(taskName):
+	var taskdata = active_tasks[taskName]
 	active_tasks.erase(taskName)
 	%taskGridContainer.load_tasks(active_tasks)
 	save_game()
