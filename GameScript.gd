@@ -37,9 +37,13 @@ var Last_Login
 
 var Save_Data
 
+# global variables to pass data around
+var remove_daily
+var selected_task
+
 func _ready():
 	
-	reset_save()
+	#reset_save()
 	
 	if not FileAccess.file_exists("user://save_game.dat"):
 		print("File does not exist")
@@ -167,10 +171,8 @@ func task_completed(taskName):
 	save_game()
 
 func task_cancelled(taskName):
-	var taskdata = active_tasks[taskName]
-	active_tasks.erase(taskName)
-	%taskGridContainer.load_tasks(active_tasks)
-	save_game()
+	%CancelTask.show()
+	selected_task = taskName
 	
 func load_sprite(string):
 	var array = skins_dict[string]
@@ -310,3 +312,21 @@ func _on_create_task_button_pressed():
 
 func _on_new_task_button_pressed():
 	%NewTask.show()
+
+
+func _on_remove_daily_toggled(toggled_on):
+	remove_daily = toggled_on
+
+
+func _on_confirm_remove_button_pressed():
+	var taskdata = active_tasks[selected_task]
+	%CancelTask.hide()
+	active_tasks.erase(selected_task)
+	if remove_daily && daily_tasks.has(selected_task):
+		daily_tasks.erase(selected_task)
+	%taskGridContainer.load_tasks(active_tasks)
+	save_game()
+
+
+func _on_cancel_remove_button_pressed():
+	%CancelTask.hide()

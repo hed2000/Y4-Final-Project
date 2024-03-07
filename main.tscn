@@ -989,6 +989,132 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "Repeat daily?"
 
+[node name="CancelTask" type="Control" parent="GameScript"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("35_iruee")
+
+[node name="TextureRect" type="TextureRect" parent="GameScript/CancelTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -516.0
+offset_right = 305.0
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/CancelTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -213.0
+offset_top = -444.0
+offset_right = 211.0
+offset_bottom = -348.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 70
+text = "Delete Task?"
+
+[node name="ConfirmRemoveButton" type="TextureButton" parent="GameScript/CancelTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -294.0
+offset_top = -138.0
+offset_right = -2.0
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/CancelTask/ConfirmRemoveButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -36.0
+offset_right = 101.0
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Confirm"
+
+[node name="CancelRemoveButton" type="TextureButton" parent="GameScript/CancelTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -139.0
+offset_right = 292.0
+offset_bottom = -29.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("16_p7ybc")
+
+[node name="Label" type="Label" parent="GameScript/CancelTask/CancelRemoveButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.505
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -36.0
+offset_right = 86.54
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Cancel"
+
+[node name="RemoveDaily" type="CheckBox" parent="GameScript/CancelTask"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -207.0
+offset_top = -315.0
+offset_right = 181.0
+offset_bottom = -197.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Remove from daily
+tasks?"
+
 [node name="Task" type="TextureRect" parent="GameScript"]
 unique_name_in_owner = true
 visible = false
@@ -1048,3 +1174,6 @@ texture_normal = ExtResource("20_6m7l3")
 [connection signal="pressed" from="GameScript/NewTask/AvgButton" to="GameScript/NewTask" method="_on_avg_button_pressed"]
 [connection signal="pressed" from="GameScript/NewTask/HardButton" to="GameScript/NewTask" method="_on_hard_button_pressed"]
 [connection signal="toggled" from="GameScript/NewTask/CheckBox" to="GameScript/NewTask" method="_on_check_box_toggled"]
+[connection signal="pressed" from="GameScript/CancelTask/ConfirmRemoveButton" to="GameScript" method="_on_confirm_remove_button_pressed"]
+[connection signal="pressed" from="GameScript/CancelTask/CancelRemoveButton" to="GameScript" method="_on_cancel_remove_button_pressed"]
+[connection signal="toggled" from="GameScript/CancelTask/RemoveDaily" to="GameScript" method="_on_remove_daily_toggled"]
