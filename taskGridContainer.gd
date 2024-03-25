@@ -6,6 +6,8 @@ signal task_cancelled(string)
 # Called when the node enters the scene tree for the first time.
 func load_tasks(active):
 	var task = %Task
+	var coin = Texture.new()
+	coin = load("res://coin.png")
 	
 	# clears previously generated tasks
 	for n in get_children():
@@ -15,7 +17,8 @@ func load_tasks(active):
 		var newtask = task.duplicate()
 		var task_data = active[i]
 		var text = newtask.get_node("Label")
-		text.text = i + " - " + str(task_data[1]) + " coins"
+		text.text = i + " - " + str(task_data[1])
+		text.add_image(coin, 0, 0)
 		var complete_button = newtask.get_node("CompleteTaskButton")
 		complete_button.pressed.connect(self.button_pressed.bind(i))
 		var cancel_button = newtask.get_node("CancelTaskButton")
