@@ -309,8 +309,8 @@ func reset_save():
 func new_game():
 	# initialising variables to be saved
 	Money = 500
-	Pet_Type = "cat"
-	%CatButton.texture_normal = selected
+	Pet_Type = ""
+	%CatButton.texture_normal = not_selected
 	# initialise default daily tasks
 	daily_tasks = {
 		"brush teeth" : ["daily", 50],
@@ -347,9 +347,12 @@ func _on_dog_button_pressed():
 	%DogButton.texture_normal = selected
 	
 func _on_new_game_start_button_pressed():
-	save_game()
-	load_game()
-	%NewGame.hide()
+	if Pet_Type == "" || Pet_Name == "":
+		print("Please select pet name and type")
+	else:
+		save_game()
+		load_game()
+		%NewGame.hide()
 
 
 func _on_create_task_button_pressed():
@@ -428,8 +431,10 @@ func _on_confirm_settings_button_pressed():
 		Pet_Type = new_type
 		match Pet_Type:
 			"cat":
-				load_sprite("ginger") # default cat sprite
+				Active_Skin = "ginger" # default cat sprite
+				load_sprite(Active_Skin) 
 			"dog":
-				load_sprite("lab")
+				Active_Skin = "lab" # default dog sprite
+				load_sprite(Active_Skin)
 	%Settings.hide()
 	save_game()
